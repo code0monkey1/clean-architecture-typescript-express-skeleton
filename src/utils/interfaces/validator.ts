@@ -4,10 +4,10 @@ export type Person = {
   name: string;
 };
 export interface ValidationLibrary<T> {
-  validate(body: unknown): T | Error;
+  validate(body: unknown): Promise<T | Error>;
 }
 export class RegisterValidator implements ValidationLibrary<Person> {
-  validate(body: unknown): Person | Error {
+  async validate(body: unknown): Promise<Person | Error> {
     if (!body) {
       throw new Error('The body is empty');
     }
@@ -16,7 +16,7 @@ export class RegisterValidator implements ValidationLibrary<Person> {
       name: z.string().min(3).max(20).trim(),
     });
 
-    const person = personSchema.parse(body);
+    const person = await personSchema.parseAsync(body);
 
     return person;
   }
