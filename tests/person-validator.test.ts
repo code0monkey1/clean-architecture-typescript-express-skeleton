@@ -20,13 +20,13 @@ export interface ValidationLibrary<T> {
 }
 
 import { ZodError } from 'zod';
-import { ValLibImpl } from '../src/utils/interfaces/validator';
+import { RegisterValidator } from '../src/utils/interfaces/validator';
 
 describe('ValLibImpl', () => {
   let val_lib: ValidationLibrary<Person>;
 
   beforeEach(() => {
-    val_lib = new ValLibImpl();
+    val_lib = new RegisterValidator();
   });
 
   it('should throw an error when the body is null', () => {
