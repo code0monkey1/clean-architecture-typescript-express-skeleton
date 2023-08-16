@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import { z } from 'zod';
 
 export const UserSchema = z.object({
@@ -23,7 +24,15 @@ export const UserSchema = z.object({
   }),
 });
 
-export type TUserSchema = z.infer<typeof UserSchema> & { _id: string };
+// define a schema for ID
+const HasID = z.object({ id: z.string() });
+
+// merge HasID with UserSchema
+const UserWithId = UserSchema.merge(HasID);
+export type UserSchema = z.infer<typeof UserSchema>;
+
+// infer User from UserWithId
+export type UserWithIdSchema = z.infer<typeof UserWithId>;
 
 export default {
   UserSchema,
