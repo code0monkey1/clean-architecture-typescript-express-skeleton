@@ -20,14 +20,14 @@ describe('ValLibImpl', () => {
     val_lib = new RegisterValidator();
   });
 
-  it('should return a Person object when the body is valid', () => {
+  it('should return a Person object when the body is valid', async () => {
     const body: Person = { name: 'Hiran' };
-    const result = val_lib.validate(body);
+    const result = await val_lib.validate(body);
     expect(result).toEqual(body);
   });
 
-  it('should return a ZodError when a person does not have a name filed', () => {
+  it('should return a ZodError when a person does not have a name filed', async () => {
     const body = { fame: 'Hiran' };
-    expect(async () => await val_lib.validate(body)).toThrow(ZodError);
+    await expect(val_lib.validate(body)).rejects.toThrow(ZodError);
   });
 });
