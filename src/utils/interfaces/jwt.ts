@@ -3,15 +3,15 @@ import jwt from 'jsonwebtoken';
 
 import { JWT_SECRET } from '../../config';
 
-interface Jwt<TokenData> {
-  sign(tokenData: TokenData, expiry: string, secret: string): string;
-  verify(token: string, secret: string): TokenData;
+interface Jwt<T> {
+  sign(tokenData: T, expiry: string, secret: string): string;
+  verify(token: string, secret: string): T;
 }
 
-interface TokenData {
+export type TokenData = {
   _id: string;
   role: string;
-}
+};
 
 class JwtService implements Jwt<TokenData> {
   sign(tokenData: TokenData, expiry = '60s', secret = JWT_SECRET): string {
