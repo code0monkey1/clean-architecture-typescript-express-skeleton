@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+// /* eslint-disable @typescript-eslint/no-unsafe-call */
+// /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { z } from 'zod';
-import Validator from './interfaces/validation-service';
+// import { z } from 'zod';
+// import Validator from './interfaces/validation-service';
 
 type UserResponseModel = {
   _id: string;
@@ -11,42 +11,51 @@ type UserResponseModel = {
   hashed_password: string;
 };
 
-export default class UserValidator implements Validator<UserResponseModel> {
-  validate(body: unknown): UserResponseModel {
-    const UserSchema = z.object({
-      _id: z.string(),
-      name: z
-        .string({
-          required_error: 'Name is required',
-        })
-        .trim()
-        .min(1, 'Name cannot be empty'),
-      email: z
-        .string({
-          required_error: 'Email is required',
-        })
-        .trim()
-        .min(1, 'Email cannot be empty')
-        .email('Invalid email'),
-      hashed_password: z.string(),
-    });
+// interface ValidationLibrary<T> {
+//   validate(body: unknown): T | Error;
+// }
 
-    // define a schema for ID
-    //  const HasID = z.object({ id: z.string() });
+// class ZodValidation implements ValidationLibrary<UserResponseModel> {
+//   validate(body: unknown): UserResponseModel | Error {
+//     const UserSchema = z.object({
+//       _id: z.string(),
+//       name: z
+//         .string({
+//           required_error: 'Name is required',
+//         })
+//         .trim()
+//         .min(1, 'Name cannot be empty'),
+//       email: z
+//         .string({
+//           required_error: 'Email is required',
+//         })
+//         .trim()
+//         .min(1, 'Email cannot be empty')
+//         .email('Invalid email'),
+//       hashed_password: z.string(),
+//     });
 
-    //  // merge HasID with UserSchema
-    //  const UserWithId = UserSchema.merge(HasID);
-    //  export type UserSchema = z.infer<typeof UserSchema>;
+//     const result: UserResponseModel = UserSchema.parse(body);
 
-    //  // infer User from UserWithId
-    //  export type UserWithIdSchema = z.infer<typeof UserWithId>;
+//     return result;
+//   }
+// }
 
-    //  export default {
-    //    UserSchema,
-    //  };
+interface Validator<T> {
+  execute(body: unknown): T | Error;
+}
 
-    const result: UserResponseModel = UserSchema.parse(body);
+export class ValidatorImpl implements Validator<UserResponseModel> {
+  constructor(
+    private readonly validationLibrary: ValidationLibrary<UserResponseModel>
+  ) {}
 
-    return result;
+  execute(body: unknown) {
+    return this.validationLibrary.validate(body);
   }
 }
+
+interface ValidationLibrary<T> {
+  validate(body: unknown): T | Error;
+}
+//---
