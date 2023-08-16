@@ -18,8 +18,9 @@ export class PersonValidator implements Validator<Person> {
 export interface ValidationLibrary<T> {
   validate(body: unknown): T | Error;
 }
-import ValLibImpl from 'utils/interfaces/validator';
+
 import { ZodError } from 'zod';
+import { ValLibImpl } from '../src/utils/interfaces/validator';
 
 describe('ValLibImpl', () => {
   let val_lib: ValidationLibrary<Person>;

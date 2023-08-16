@@ -20,7 +20,7 @@ export class PersonValidator implements Validator<Person> {
 export interface ValidationLibrary<T> {
   validate(body: unknown): T | Error;
 }
-export default class ValLibImpl implements ValidationLibrary<Person> {
+export class ValLibImpl implements ValidationLibrary<Person> {
   validate(body: unknown): Person | Error {
     if (!body) {
       throw new Error('The body is empty');
