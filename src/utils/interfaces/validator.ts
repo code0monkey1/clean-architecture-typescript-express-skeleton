@@ -4,18 +4,18 @@ export type Person = {
   name: string;
 };
 
-export interface Validator<T> {
-  validate(body: unknown): T | Error;
-}
+// export interface Validator<T> {
+//   validate(body: unknown): T | Error;
+// }
 
-export class PersonValidator implements Validator<Person> {
-  constructor(private v: ValidationLibrary<Person>) {}
+// export class PersonValidator implements Validator<Person> {
+//   constructor(private v: ValidationLibrary<Person>) {}
 
-  validate(body: unknown) {
-    const person = this.v.validate(body);
-    return person;
-  }
-}
+//   validate(body: unknown) {
+//     const person = this.v.validate(body);
+//     return person;
+//   }
+// }
 
 export interface ValidationLibrary<T> {
   validate(body: unknown): T | Error;
