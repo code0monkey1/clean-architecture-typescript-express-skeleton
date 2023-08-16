@@ -11,9 +11,11 @@ export class RegisterValidator implements ValidationLibrary<Person> {
     const personSchema = z.object({
       name: z.string().min(3).max(20).trim(),
     });
-
-    const person = await personSchema.parseAsync(body);
-
-    return person;
+    try {
+      const person = await personSchema.parseAsync(body);
+      return person;
+    } catch (error) {
+      return new Error('things');
+    }
   }
 }
