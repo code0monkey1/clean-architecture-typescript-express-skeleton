@@ -19,18 +19,30 @@ export interface ValidationLibrary<T> {
   validate(body: unknown): T | Error;
 }
 
-describe('PersonValidator', () => {
-  it('should throw error when value is invalid', () => {
-    class ValLibImpl implements ValidationLibrary<Person> {
-      validate(_body: unknown): Person | Error {
-        throw new Error('Method not implemented.');
-      }
+class ValLibImpl implements ValidationLibrary<Person> {
+  validate(body: unknown): Person | Error {
+    if (!body) {
+      throw new Error('The body is empty');
     }
 
-    const val_lib = new ValLibImpl();
+    return body as Person;
+  }
+}
 
-    const sut = new PersonValidator(val_lib);
+describe('ValLibImpl', () => {
+  let val_lib: ValidationLibrary<Person>;
 
-    sut.validate({ name: 'Hiran' });
+  beforeEach(() => {
+    val_lib = new ValLibImpl();
+  });
+
+  it('should throw an error when the body is null', () => {
+    expect(() => val_lib.validate('')).toThrowError('The body is empty');
+  });
+
+  it('should return a Person object when the body is valid', () => {
+    const body: Person = { name: 'Hiran' };
+    const result = val_lib.validate(body);
+    expect(result).toEqual(body);
   });
 });
