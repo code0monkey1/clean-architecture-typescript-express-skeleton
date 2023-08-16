@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 import jwt from 'jsonwebtoken';
-import { JWT_SECRET } from '../config';
-import IJwt from './interfaces/IJwt';
+import { JWT_SECRET } from '../../config';
+import IJwt from '../interfaces/IJwt';
 
 export type TokenData = {
   _id: string;
