@@ -51,4 +51,9 @@ describe('ValLibImpl', () => {
     const result = val_lib.validate(body);
     expect(result).toEqual(body);
   });
+
+  it('should return a Person object when the body is valid', () => {
+    const body = { fame: 'Hiran' };
+    expect(val_lib.validate(body)).toThrowError();
+  });
 });
