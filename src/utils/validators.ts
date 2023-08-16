@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { z } from 'zod';
 
-export const UserZodSchema = z.object({
+export const UserSchema = z.object({
   name: z
     .string({
       required_error: 'Name is required',
@@ -23,6 +23,8 @@ export const UserZodSchema = z.object({
   }),
 });
 
+export type TUserSchema = z.infer<typeof UserSchema> & { _id: string };
+
 export default {
-  UserZodSchema,
+  UserSchema,
 };
