@@ -17,11 +17,14 @@ export const UserSchema = z.object({
     .trim()
     .min(1, 'Email cannot be empty')
     .email('Invalid email'),
-  role: z.enum(['admin', 'customer', 'vendor'], {
-    errorMap: (_issue, _ctx) => {
-      return { message: 'Invalid role' };
-    },
-  }),
+  password: z
+    .string({
+      required_error: 'Password is required',
+    })
+    .min(1, 'Password Cannot Be Empty')
+    .max(20, 'Password cannot be more than 20 characters long'),
+  created: z.date(),
+  updated: z.date(),
 });
 
 // define a schema for ID
