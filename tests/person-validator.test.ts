@@ -6,31 +6,18 @@ export default interface Validator<T> {
   validate(body: unknown): T | Error;
 }
 
-export class PersonValidator implements Validator<Person> {
-  constructor(private v: ValidationLibrary<Person>) {}
-
-  validate(body: unknown) {
-    const person = this.v.validate(body);
-    return person;
-  }
-}
-
 export interface ValidationLibrary<T> {
-  validate(body: unknown): T | Error;
+  validate(body: unknown): Promise<T | Error>;
 }
 
 import { ZodError } from 'zod';
 import { RegisterValidator } from '../src/utils/interfaces/validator';
 
 describe('ValLibImpl', () => {
-  let val_lib: ValidationLibrary<Person>;
+  let val_lib: ValidationLibrary<Person | Error>;
 
   beforeEach(() => {
     val_lib = new RegisterValidator();
-  });
-
-  it('should throw an error when the body is null', () => {
-    expect(() => val_lib.validate('')).toThrowError('The body is empty');
   });
 
   it('should return a Person object when the body is valid', () => {
@@ -41,6 +28,6 @@ describe('ValLibImpl', () => {
 
   it('should return a ZodError when a person does not have a name filed', () => {
     const body = { fame: 'Hiran' };
-    expect(() => val_lib.validate(body)).toThrow(ZodError);
+    expect(async () => await val_lib.validate(body)).toThrow(ZodError);
   });
 });

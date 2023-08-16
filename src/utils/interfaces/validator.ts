@@ -8,10 +8,6 @@ export interface ValidationLibrary<T> {
 }
 export class RegisterValidator implements ValidationLibrary<Person> {
   async validate(body: unknown): Promise<Person | Error> {
-    if (!body) {
-      throw new Error('The body is empty');
-    }
-
     const personSchema = z.object({
       name: z.string().min(3).max(20).trim(),
     });
