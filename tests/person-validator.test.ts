@@ -18,22 +18,8 @@ export class PersonValidator implements Validator<Person> {
 export interface ValidationLibrary<T> {
   validate(body: unknown): T | Error;
 }
-import { ZodError, z } from 'zod';
-class ValLibImpl implements ValidationLibrary<Person> {
-  validate(body: unknown): Person | Error {
-    if (!body) {
-      throw new Error('The body is empty');
-    }
-
-    const personSchema = z.object({
-      name: z.string().min(3).max(20).trim(),
-    });
-
-    const person = personSchema.parse(body);
-
-    return person;
-  }
-}
+import ValLibImpl from 'utils/interfaces/validator';
+import { ZodError } from 'zod';
 
 describe('ValLibImpl', () => {
   let val_lib: ValidationLibrary<Person>;
@@ -52,8 +38,8 @@ describe('ValLibImpl', () => {
     expect(result).toEqual(body);
   });
 
-  it('should return a Person object when the body is valid', () => {
+  it('should return a ZodError when a person does not have a name filed', () => {
     const body = { fame: 'Hiran' };
-    expect(val_lib.validate(body)).toThrow(ZodError);
+    expect(() => val_lib.validate(body)).toThrow(ZodError);
   });
 });
