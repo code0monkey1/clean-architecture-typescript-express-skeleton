@@ -1,3 +1,3 @@
-export interface Validator<T> {
+export default interface Validator<T> {
   execute(body: T): void;
 }
