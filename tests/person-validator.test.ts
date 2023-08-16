@@ -18,7 +18,7 @@ export class PersonValidator implements Validator<Person> {
 export interface ValidationLibrary<T> {
   validate(body: unknown): T | Error;
 }
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 class ValLibImpl implements ValidationLibrary<Person> {
   validate(body: unknown): Person | Error {
     if (!body) {
@@ -54,6 +54,6 @@ describe('ValLibImpl', () => {
 
   it('should return a Person object when the body is valid', () => {
     const body = { fame: 'Hiran' };
-    expect(val_lib.validate(body)).toThrowError();
+    expect(val_lib.validate(body)).toThrow(ZodError);
   });
 });
