@@ -11,16 +11,19 @@ describe('character-copier', () => {
 
       const dest: Destination = getDestination();
 
+      readChar.mockReturnValue('');
+
       const sut = new Copier(src, dest);
 
       sut.copy();
 
-      expect(chars).toHaveLength(0);
+      expect(writeChar).toBeCalledTimes(0);
     });
     it('reads first char from source', () => {
       const src: Source = getSource();
 
       const dest: Destination = getDestination();
+      readChar.mockReturnValue('c');
 
       const sut = new Copier(src, dest);
 
@@ -39,14 +42,19 @@ describe('character-copier', () => {
 
 const chars: string[] = [];
 
+const readChar = jest.fn();
+const writeChar = jest.fn((c: string) => {
+  chars.push(c);
+});
+
 const getSource = () => {
   return {
-    readChar: jest.fn(),
+    readChar,
   };
 };
 
 const getDestination = () => {
   return {
-    writeChar: jest.fn(),
+    writeChar,
   };
 };
