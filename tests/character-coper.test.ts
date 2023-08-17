@@ -1,6 +1,5 @@
 import { Copier, Destination, Source } from './presentation/character-copier';
 import {
-  chars,
   getDestination,
   getSource,
   readChar,
@@ -26,13 +25,14 @@ describe('character-copier', () => {
 
       expect(writeChar).toBeCalledTimes(0);
     });
+
     it('reads first char from source', () => {
       const src: Source = getSource();
 
       const dest: Destination = getDestination();
 
-      readChar.mockReturnValue('c');
-      readChar.mockReturnValueOnce('\n');
+      readChar.mockReturnValue('\n');
+      readChar.mockReturnValueOnce('c');
 
       const sut = new Copier(src, dest);
 
@@ -46,14 +46,14 @@ describe('character-copier', () => {
 
       const dest: Destination = getDestination();
 
-      readChar.mockReturnValue('c');
-      readChar.mockReturnValue('d');
-      readChar.mockReturnValueOnce('\n');
+      readChar.mockReturnValueOnce('c');
+      readChar.mockReturnValueOnce('d');
+      readChar.mockReturnValue('\n');
 
       const sut = new Copier(src, dest);
 
       sut.copy();
-      console.log(chars);
+
       expect(writeChar).toBeCalledTimes(2);
     });
   });

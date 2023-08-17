@@ -9,6 +9,7 @@ export class Copier {
 
     while (char !== '\n') {
       this.dest.writeChar(char);
+
       char = this.src.readChar();
     }
   }
