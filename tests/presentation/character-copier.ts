@@ -12,6 +12,9 @@ export class Copier {
       this.dest.writeChar(char);
 
       char = this.src.readChar();
+      if (char === '\n') {
+        console.log('🚫 Newline encountered');
+      }
     }
   }
 }
