@@ -3,6 +3,7 @@ import {
   getDestination,
   getSource,
   readChar,
+  readMultipleChars,
   writeChar,
 } from './presentation/copier-helper';
 
@@ -78,15 +79,14 @@ describe('character-copier', () => {
 
         const dest: Destination = getDestination();
 
-        readChar.mockReturnValueOnce(chars[0]);
-        readChar.mockReturnValueOnce(chars[1]);
+        readMultipleChars(chars);
         readChar.mockReturnValue('\n');
 
         const sut = new Copier(src, dest);
 
         sut.copy();
 
-        expect(writeChar).toBeCalledTimes(2);
+        expect(writeChar).toBeCalledTimes(chars.length);
       }
     );
   });
