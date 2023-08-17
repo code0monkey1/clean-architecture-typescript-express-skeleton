@@ -11,6 +11,12 @@ describe('character-copier', () => {
     jest.clearAllMocks();
   });
 
+  //[ ] No characters , ending in newline
+  //[ ] Once character , ending in newline
+  //[ ] Two characters , ending in newline
+  //[ ] Many characters, ending in newline
+  //[ ] Order of characters
+
   describe('reads character from source', () => {
     it('does not call the destination method if there is no char is source', () => {
       const src: Source = getSource();
