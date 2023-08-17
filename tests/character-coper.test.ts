@@ -7,7 +7,7 @@ describe('character-copier', () => {
 
   describe('reads character from source', () => {
     it('does not call the destination method if there is no char is source', () => {
-      const src: Source = getSource('');
+      const src: Source = getSource();
 
       const dest: Destination = getDestination();
 
@@ -18,7 +18,7 @@ describe('character-copier', () => {
       expect(chars).toHaveLength(0);
     });
     it('reads first char from source', () => {
-      const src: Source = getSource('c');
+      const src: Source = getSource();
 
       const dest: Destination = getDestination();
 
@@ -39,19 +39,14 @@ describe('character-copier', () => {
 
 const chars: string[] = [];
 
-const getSource = (initialChars: string) => {
+const getSource = () => {
   return {
-    readChar: function (): string {
-      return initialChars;
-    },
+    readChar: jest.fn(),
   };
 };
 
 const getDestination = () => {
   return {
-    writeChar: function (c: string): void {
-      if (!c) return;
-      chars.push(c);
-    },
+    writeChar: jest.fn(),
   };
 };
