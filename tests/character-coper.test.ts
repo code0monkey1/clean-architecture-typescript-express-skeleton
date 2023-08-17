@@ -94,7 +94,7 @@ describe('character-copier', () => {
         expect(writeChar).toBeCalledTimes(chars.length);
         chars
           .split('')
-          .forEach((c) => expect(writeChar).toHaveBeenLastCalledWith(c));
+          .forEach((c) => expect(writeChar).toHaveBeenCalledWith(c));
       }
     );
 
