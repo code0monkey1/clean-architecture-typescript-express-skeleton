@@ -7,19 +7,9 @@ describe('character-copier', () => {
 
   describe('reads character from source', () => {
     test('reads first char from source', () => {
-      const chars: string[] = [];
+      const src: Source = getSource();
 
-      const src: Source = {
-        readChar: function (): string {
-          return 'c';
-        },
-      };
-
-      const dest: Destination = {
-        writeChar: function (c: string): void {
-          chars.push(c);
-        },
-      };
+      const dest: Destination = getDestination();
 
       const sut = new Copier(src, dest);
 
@@ -27,9 +17,29 @@ describe('character-copier', () => {
 
       expect(chars).toContainEqual('c');
     });
+
+    it('reads exactly 2 times before encountering a newline', () => {});
   });
 
   afterAll(() => {
     jest.clearAllMocks();
   });
 });
+
+const chars: string[] = [];
+
+const getSource = () => {
+  return {
+    readChar: function (): string {
+      return 'c';
+    },
+  };
+};
+
+const getDestination = () => {
+  return {
+    writeChar: function (c: string): void {
+      chars.push(c);
+    },
+  };
+};
