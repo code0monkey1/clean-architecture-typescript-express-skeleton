@@ -92,6 +92,9 @@ describe('character-copier', () => {
         sut.copy();
 
         expect(writeChar).toBeCalledTimes(chars.length);
+        chars
+          .split('')
+          .forEach((c) => expect(writeChar).toHaveBeenLastCalledWith(c));
       }
     );
 
