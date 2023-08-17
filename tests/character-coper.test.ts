@@ -126,8 +126,8 @@ describe('character-copier', () => {
   });
   //[+] Characters after newline should not be written
   it.each([
-    { chars: '1234\n567', before: '1234', after: '567' },
-    { chars: '1234\n567', before: '1234', after: '567' },
+    { chars: '1234567\n89', before: '1234567', after: '89' },
+    { chars: '1234567\n89', before: '1234567', after: '89' },
   ])(
     'has all characters before : $before , the newline  and none after : $after , it ',
     ({ chars, before }) => {
