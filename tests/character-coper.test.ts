@@ -20,6 +20,7 @@ describe('character-copier', () => {
   //[ ] Two characters , ending in newline
   //[ ] Many characters, ending in newline
   //[ ] Order of characters
+  //[ ] Characters after newline should not be written
 
   describe('reads character from source', () => {
     //[+] No characters , ending in newline
@@ -123,4 +124,29 @@ describe('character-copier', () => {
       }
     );
   });
+  //[+] Characters after newline should not be written
+  it.each([
+    { chars: '1234\n567', before: '1234', after: '567' },
+    { chars: 'cde\nf', before: 'cde', after: 'f' },
+    { chars: 'e\nfgdds', before: 'e', after: 'fgdds' },
+  ])(
+    'has all characters before ($before)the newline  and none after($after) it ',
+    ({ chars, before, after }) => {
+      const src: Source = getSource();
+
+      const dest: Destination = getDestination();
+
+      readMultipleChars(chars);
+      readChar.mockReturnValue('\n');
+
+      const sut = new Copier(src, dest);
+
+      sut.copy();
+
+      expect(writeChar).toBeCalledTimes(before.length);
+
+      expect(copiedChars).toEqual(before.split(''));
+      expect(copiedChars).not.toContainEqual(after.split(''));
+    }
+  );
 });
