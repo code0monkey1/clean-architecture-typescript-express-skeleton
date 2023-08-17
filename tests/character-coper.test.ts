@@ -130,7 +130,7 @@ describe('character-copier', () => {
     { chars: 'cde\nf', before: 'cde', after: 'f' },
     { chars: 'e\nfgdds', before: 'e', after: 'fgdds' },
   ])(
-    'has all characters before ($before)the newline  and none after($after) it ',
+    'has all characters before : $before , the newline  and none after : $after , it ',
     ({ chars, before, after }) => {
       const src: Source = getSource();
 
@@ -146,7 +146,8 @@ describe('character-copier', () => {
       expect(writeChar).toBeCalledTimes(before.length);
 
       expect(copiedChars).toEqual(before.split(''));
-      expect(copiedChars).not.toContainEqual(after.split(''));
+
+      after.split('').forEach((c) => expect(copiedChars).not.toContainEqual(c));
     }
   );
 });
