@@ -1,5 +1,7 @@
 import { Copier, Destination, Source } from './presentation/character-copier';
 import {
+  clearCopiedCharsArray,
+  copiedChars,
   getDestination,
   getSource,
   readChar,
@@ -10,6 +12,7 @@ import {
 describe('character-copier', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    clearCopiedCharsArray();
   });
 
   //[ ] No characters , ending in newline
@@ -87,6 +90,25 @@ describe('character-copier', () => {
         sut.copy();
 
         expect(writeChar).toBeCalledTimes(chars.length);
+      }
+    );
+
+    it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
+      'reads exactly 2 times before encountering a newline',
+      ({ chars }) => {
+        const src: Source = getSource();
+
+        const dest: Destination = getDestination();
+
+        readMultipleChars(chars);
+        readChar.mockReturnValue('\n');
+
+        const sut = new Copier(src, dest);
+
+        sut.copy();
+
+        expect(writeChar).toBeCalledTimes(chars.length);
+        expect(copiedChars.join('')).toEqual(chars);
       }
     );
   });

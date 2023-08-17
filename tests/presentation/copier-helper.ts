@@ -23,3 +23,7 @@ export const readMultipleChars = (str: string) => {
     readChar.mockReturnValueOnce(c);
   });
 };
+
+export const clearCopiedCharsArray = () => {
+  while (copiedChars.length) copiedChars.pop();
+};
