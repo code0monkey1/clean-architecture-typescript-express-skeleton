@@ -92,12 +92,17 @@ describe('character-copier', () => {
         sut.copy();
 
         expect(writeChar).toBeCalledTimes(chars.length);
+
+        //multiple characters written (order does not matter)
         chars
           .split('')
           .forEach((c) => expect(writeChar).toHaveBeenCalledWith(c));
+
+        // confirm last called character
+        expect(writeChar).toHaveBeenLastCalledWith(chars[chars.length - 1]);
       }
     );
-
+    //[+] Order of characters
     it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
       'has all characters copied in teh same order',
       ({ chars }) => {
