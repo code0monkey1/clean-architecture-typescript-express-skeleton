@@ -30,6 +30,7 @@ describe('character-copier', () => {
       const src: Source = getSource();
 
       const dest: Destination = getDestination();
+
       readChar.mockReturnValue('c');
       readChar.mockReturnValueOnce('\n');
 
@@ -37,7 +38,7 @@ describe('character-copier', () => {
 
       sut.copy();
 
-      expect(chars).toContainEqual('c');
+      expect(writeChar).toHaveBeenLastCalledWith('c');
     });
 
     it('reads exactly 2 times before encountering a newline', () => {
@@ -52,7 +53,7 @@ describe('character-copier', () => {
       const sut = new Copier(src, dest);
 
       sut.copy();
-
+      console.log(chars);
       expect(writeChar).toBeCalledTimes(2);
     });
   });
