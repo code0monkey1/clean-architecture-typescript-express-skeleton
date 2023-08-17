@@ -32,35 +32,43 @@ describe('character-copier', () => {
       expect(writeChar).toBeCalledTimes(0);
     });
 
-    it('reads first char from source', () => {
-      const src: Source = getSource();
+    it.each([{ char: 'a' }, { char: 'b' }, { char: 'c' }, { char: 'd' }])(
+      'reads first char from source',
+      ({ char }) => {
+        const src: Source = getSource();
 
-      const dest: Destination = getDestination();
+        const dest: Destination = getDestination();
 
-      readChar.mockReturnValue('\n');
-      readChar.mockReturnValueOnce('c');
+        readChar.mockReturnValue('\n');
 
-      const sut = new Copier(src, dest);
+        readChar.mockReturnValueOnce(char);
+        readChar.mockReturnValue('\n');
 
-      sut.copy();
+        const sut = new Copier(src, dest);
 
-      expect(writeChar).toHaveBeenCalledWith('c');
-    });
+        sut.copy();
 
-    it('reads exactly 2 times before encountering a newline', () => {
-      const src: Source = getSource();
+        expect(writeChar).toHaveBeenCalledWith(char);
+      }
+    );
 
-      const dest: Destination = getDestination();
+    it.each([{ chars: 'ab' }, { chars: 'cd' }, { chars: 'ef' }])(
+      'reads exactly 2 times before encountering a newline',
+      ({ chars }) => {
+        const src: Source = getSource();
 
-      readChar.mockReturnValueOnce('c');
-      readChar.mockReturnValueOnce('d');
-      readChar.mockReturnValue('\n');
+        const dest: Destination = getDestination();
 
-      const sut = new Copier(src, dest);
+        readChar.mockReturnValueOnce(chars[0]);
+        readChar.mockReturnValueOnce(chars[1]);
+        readChar.mockReturnValue('\n');
 
-      sut.copy();
+        const sut = new Copier(src, dest);
 
-      expect(writeChar).toBeCalledTimes(2);
-    });
+        sut.copy();
+
+        expect(writeChar).toBeCalledTimes(2);
+      }
+    );
   });
 });
