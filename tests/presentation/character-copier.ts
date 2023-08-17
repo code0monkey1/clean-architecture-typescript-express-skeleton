@@ -5,11 +5,11 @@ export class Copier {
   ) {}
 
   copy() {
-    const char = this.src.readChar();
+    let char = this.src.readChar();
 
-    while (this.src.readChar() !== '\n') {
-      if (!char) return;
+    while (char !== '\n') {
       this.dest.writeChar(char);
+      char = this.src.readChar();
     }
   }
 }
