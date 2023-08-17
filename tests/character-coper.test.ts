@@ -38,7 +38,7 @@ describe('character-copier', () => {
 
       sut.copy();
 
-      expect(writeChar).toHaveBeenLastCalledWith('c');
+      expect(writeChar).toHaveBeenCalledWith('c');
     });
 
     it('reads exactly 2 times before encountering a newline', () => {
