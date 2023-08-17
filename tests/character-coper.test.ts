@@ -147,6 +147,7 @@ describe('character-copier', () => {
       expect(copiedChars).toEqual(before.split(''));
 
       after.split('').forEach((c) => expect(copiedChars).not.toContainEqual(c));
+      console.log(copiedChars);
     }
   );
 });
