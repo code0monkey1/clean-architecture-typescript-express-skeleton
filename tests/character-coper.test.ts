@@ -22,6 +22,7 @@ describe('character-copier', () => {
   //[ ] Order of characters
 
   describe('reads character from source', () => {
+    //[+] No characters , ending in newline
     it('does not call the destination method if there is no char is source', () => {
       const src: Source = getSource();
 
@@ -36,6 +37,7 @@ describe('character-copier', () => {
       expect(writeChar).toBeCalledTimes(0);
     });
 
+    //[+] Once character , ending in newline
     it.each([{ char: 'a' }, { char: 'b' }, { char: 'c' }, { char: 'd' }])(
       'reads first char from source',
       ({ char }) => {
@@ -55,7 +57,7 @@ describe('character-copier', () => {
         expect(writeChar).toHaveBeenCalledWith(char);
       }
     );
-
+    //[+] Two characters , ending in newline
     it.each([{ chars: 'ab' }, { chars: 'cd' }, { chars: 'ef' }])(
       'reads exactly 2 times before encountering a newline',
       ({ chars }) => {
@@ -74,7 +76,7 @@ describe('character-copier', () => {
         expect(writeChar).toBeCalledTimes(2);
       }
     );
-
+    //[+] Many characters, ending in newline
     it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
       'reads exactly $chars.length times before encountering a newline',
       ({ chars }) => {
