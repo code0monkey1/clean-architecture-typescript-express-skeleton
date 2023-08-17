@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": " node --inspect-brk --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage",
+    "test": "jest  --runInBand --collectCoverage  --watchAll --testMatch='**/tests/**/*.test.ts'",
     "tsc": "tsc",
     "dev": "ts-node-dev src/main.ts",
     "lint": "eslint --ext .ts .",
