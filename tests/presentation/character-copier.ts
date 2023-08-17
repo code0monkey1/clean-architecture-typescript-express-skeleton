@@ -8,6 +8,7 @@ export class Copier {
     let char = this.src.readChar();
 
     while (char !== '\n') {
+      console.log('char is ', char);
       this.dest.writeChar(char);
 
       char = this.src.readChar();
