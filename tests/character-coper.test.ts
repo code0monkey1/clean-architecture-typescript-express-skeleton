@@ -6,8 +6,19 @@ describe('character-copier', () => {
   });
 
   describe('reads character from source', () => {
-    test('reads first char from source', () => {
-      const src: Source = getSource();
+    it('does not call the destination method if there is no char is source', () => {
+      const src: Source = getSource('');
+
+      const dest: Destination = getDestination();
+
+      const sut = new Copier(src, dest);
+
+      sut.copy();
+
+      expect(chars).toHaveLength(0);
+    });
+    it('reads first char from source', () => {
+      const src: Source = getSource('c');
 
       const dest: Destination = getDestination();
 
@@ -28,10 +39,10 @@ describe('character-copier', () => {
 
 const chars: string[] = [];
 
-const getSource = () => {
+const getSource = (initialChars: string) => {
   return {
     readChar: function (): string {
-      return 'c';
+      return initialChars;
     },
   };
 };
@@ -39,6 +50,7 @@ const getSource = () => {
 const getDestination = () => {
   return {
     writeChar: function (c: string): void {
+      if (!c) return;
       chars.push(c);
     },
   };
