@@ -4,7 +4,7 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "node --trace-warnings node_modules/.bin/jest -i --watchAll --verbose --runInBand --collectCoverage --testMatch='**/tests/**/*.test.ts'",
+    "test": "node --trace-warnings node_modules/.bin/jest -i --verbose",
     "tsc": "tsc",
     "dev": "ts-node-dev src/main.ts",
     "lint": "eslint --ext .ts .",
