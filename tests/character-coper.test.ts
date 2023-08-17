@@ -129,7 +129,7 @@ describe('character-copier', () => {
     { chars: '1234567\n89', before: '1234567', after: '89' },
     { chars: '1234567\n89', before: '1234567', after: '89' },
   ])(
-    'has all characters before : $before , the newline  and none after : $after , it ',
+    'has all characters before : $before , the newline  and none after : $after',
     ({ chars, before, after }) => {
       console.log('chars are', chars);
       console.log('before is', before);
