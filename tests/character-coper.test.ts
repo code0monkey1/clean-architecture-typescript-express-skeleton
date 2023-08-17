@@ -76,7 +76,7 @@ describe('character-copier', () => {
     );
 
     it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
-      'reads exactly 2 times before encountering a newline',
+      'reads exactly $chars.length times before encountering a newline',
       ({ chars }) => {
         const src: Source = getSource();
 
@@ -94,7 +94,7 @@ describe('character-copier', () => {
     );
 
     it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
-      'reads exactly 2 times before encountering a newline',
+      'has all characters copied in teh same order',
       ({ chars }) => {
         const src: Source = getSource();
 
@@ -108,7 +108,8 @@ describe('character-copier', () => {
         sut.copy();
 
         expect(writeChar).toBeCalledTimes(chars.length);
-        expect(copiedChars.join('')).toEqual(chars);
+
+        expect(copiedChars).toEqual(chars.split(''));
       }
     );
   });
