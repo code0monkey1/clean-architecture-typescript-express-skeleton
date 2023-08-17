@@ -127,7 +127,7 @@ describe('character-copier', () => {
   //[+] Characters after newline should not be written
   it.only.each([
     { chars: '1234567\n89', before: '1234567', after: '89' },
-    // { chars: '1234567\n89', before: '1234567', after: '89' },
+    { chars: '1234567\n89', before: '1234567', after: '89' },
   ])(
     'has all characters before : $before , the newline  and none after : $after',
     ({ chars, before, after }) => {
@@ -144,10 +144,11 @@ describe('character-copier', () => {
       const sut = new Copier(src, dest);
 
       sut.copy();
-
+      console.log('copiedChars', copiedChars);
       expect(writeChar).toBeCalledTimes(before.length);
 
       expect(copiedChars).toEqual(before.split(''));
+      clearCopiedCharsArray();
     }
   );
 });
