@@ -137,7 +137,6 @@ describe('character-copier', () => {
       const dest: Destination = getDestination();
 
       readMultipleChars(chars);
-      readChar.mockReturnValue('\n');
 
       const sut = new Copier(src, dest);
 
