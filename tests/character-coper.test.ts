@@ -70,5 +70,24 @@ describe('character-copier', () => {
         expect(writeChar).toBeCalledTimes(2);
       }
     );
+
+    it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
+      'reads exactly 2 times before encountering a newline',
+      ({ chars }) => {
+        const src: Source = getSource();
+
+        const dest: Destination = getDestination();
+
+        readChar.mockReturnValueOnce(chars[0]);
+        readChar.mockReturnValueOnce(chars[1]);
+        readChar.mockReturnValue('\n');
+
+        const sut = new Copier(src, dest);
+
+        sut.copy();
+
+        expect(writeChar).toBeCalledTimes(2);
+      }
+    );
   });
 });
