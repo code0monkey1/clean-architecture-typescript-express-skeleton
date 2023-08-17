@@ -1,13 +1,4 @@
 import { Copier, Destination, Source } from './presentation/character-copier';
-import {
-  clearCopiedCharsArray,
-  copiedChars,
-  getDestination,
-  getSource,
-  readChar,
-  readMultipleChars,
-  writeChar,
-} from './presentation/copier-helper';
 
 describe('character-copier', () => {
   beforeEach(() => {
@@ -149,6 +140,36 @@ describe('character-copier', () => {
 
       expect(copiedChars).toEqual(before.split(''));
       clearCopiedCharsArray();
+      readChar.mockClear();
     }
   );
 });
+
+export const copiedChars: string[] = [];
+
+export const readChar = jest.fn();
+
+export const getSource = () => {
+  return {
+    readChar,
+  };
+};
+export const writeChar = jest.fn((c: string) => {
+  copiedChars.push(c);
+});
+
+export const getDestination = () => {
+  return {
+    writeChar,
+  };
+};
+
+export const readMultipleChars = (str: string) => {
+  str.split('').forEach((c: string) => {
+    readChar.mockReturnValueOnce(c);
+  });
+};
+
+export const clearCopiedCharsArray = () => {
+  while (copiedChars.length) copiedChars.pop();
+};
