@@ -26,6 +26,10 @@ describe('character-copier', () => {
       expect(chars).toContainEqual('c');
     });
   });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
 });
 
 export class Copier {

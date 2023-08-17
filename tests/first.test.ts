@@ -3,3 +3,7 @@ describe('First Test', () => {
     expect(1).toBe(1);
   });
 });
+
+afterAll(() => {
+  jest.clearAllMocks();
+});

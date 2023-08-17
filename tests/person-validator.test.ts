@@ -34,4 +34,8 @@ describe('ValLibImpl', () => {
     const body = { fame: 'Hiran' };
     await expect(val_lib.validate(body)).rejects.toThrow(ZodError);
   });
+
+  afterAll(() => {
+    jest.clearAllMocks();
+  });
 });
