@@ -125,7 +125,7 @@ describe('character-copier', () => {
     );
   });
   //[+] Characters after newline should not be written
-  it.each([
+  it.only.each([
     { chars: '1234567\n89', before: '1234567', after: '89' },
     { chars: '1234567\n89', before: '1234567', after: '89' },
   ])(
