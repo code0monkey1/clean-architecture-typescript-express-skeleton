@@ -1,3 +1,5 @@
+import { Copier, Destination, Source } from './presentation/character-copier';
+
 describe('character-copier', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -31,23 +33,3 @@ describe('character-copier', () => {
     jest.clearAllMocks();
   });
 });
-
-export class Copier {
-  constructor(
-    private readonly src: Source,
-    private readonly dest: Destination
-  ) {}
-
-  copy() {
-    const char = this.src.readChar();
-    this.dest.writeChar(char);
-  }
-}
-
-export interface Source {
-  readChar(): string;
-}
-
-export interface Destination {
-  writeChar(c: string): void;
-}
