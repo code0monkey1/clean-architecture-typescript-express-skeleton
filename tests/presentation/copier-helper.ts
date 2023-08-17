@@ -17,3 +17,9 @@ export const getDestination = () => {
     writeChar,
   };
 };
+
+export const readMultipleChars = (str: string) => {
+  str.split('').forEach((c: string) => {
+    chars.push(c);
+  });
+};
