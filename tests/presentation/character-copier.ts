@@ -6,8 +6,11 @@ export class Copier {
 
   copy() {
     const char = this.src.readChar();
-    if (!char) return;
-    this.dest.writeChar(char);
+
+    while (this.src.readChar() !== '\n') {
+      if (!char) return;
+      this.dest.writeChar(char);
+    }
   }
 }
 
