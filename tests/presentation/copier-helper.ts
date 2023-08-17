@@ -1,9 +1,9 @@
-export const chars: string[] = [];
+export const copiedChars: string[] = [];
 
 export const readChar = jest.fn();
 
 export const writeChar = jest.fn((c: string) => {
-  chars.push(c);
+  copiedChars.push(c);
 });
 
 export const getSource = () => {
@@ -20,6 +20,6 @@ export const getDestination = () => {
 
 export const readMultipleChars = (str: string) => {
   str.split('').forEach((c: string) => {
-    chars.push(c);
+    readChar.mockReturnValueOnce(c);
   });
 };
