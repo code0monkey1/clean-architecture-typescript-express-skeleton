@@ -131,7 +131,7 @@ describe('character-copier', () => {
     { chars: 'e\nfgdds', before: 'e', after: 'fgdds' },
   ])(
     'has all characters before : $before , the newline  and none after : $after , it ',
-    ({ chars, before, after }) => {
+    ({ chars, before }) => {
       const src: Source = getSource();
 
       const dest: Destination = getDestination();
@@ -146,8 +146,7 @@ describe('character-copier', () => {
 
       expect(copiedChars).toEqual(before.split(''));
 
-      after.split('').forEach((c) => expect(copiedChars).not.toContainEqual(c));
-      console.log(copiedChars);
+      expect(copiedChars.join('')).toContainEqual(before);
     }
   );
 });
