@@ -1,4 +1,11 @@
 import { Copier, Destination, Source } from './presentation/character-copier';
+import {
+  chars,
+  getDestination,
+  getSource,
+  readChar,
+  writeChar,
+} from './presentation/copier-helper';
 
 describe('character-copier', () => {
   beforeEach(() => {
@@ -32,29 +39,20 @@ describe('character-copier', () => {
       expect(chars).toContainEqual('c');
     });
 
-    it('reads exactly 2 times before encountering a newline', () => {});
-  });
+    it('reads exactly 2 times before encountering a newline', () => {
+      const src: Source = getSource();
 
-  afterAll(() => {
-    jest.clearAllMocks();
+      const dest: Destination = getDestination();
+
+      readChar.mockReturnValue('c');
+      readChar.mockReturnValue('d');
+      readChar.mockReturnValueOnce('\n');
+
+      const sut = new Copier(src, dest);
+
+      sut.copy();
+
+      expect(writeChar).toBeCalledTimes(2);
+    });
   });
 });
-
-const chars: string[] = [];
-
-const readChar = jest.fn();
-const writeChar = jest.fn((c: string) => {
-  chars.push(c);
-});
-
-const getSource = () => {
-  return {
-    readChar,
-  };
-};
-
-const getDestination = () => {
-  return {
-    writeChar,
-  };
-};
