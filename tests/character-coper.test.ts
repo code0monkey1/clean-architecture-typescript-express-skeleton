@@ -1,4 +1,4 @@
-describe.skip('character-copier', () => {
+describe('character-copier', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
