@@ -125,7 +125,7 @@ describe('character-copier', () => {
     {
       chars: [`1`, `2`, `7`, `5`, `4`, `\n`, `c`, `d`],
       before: [`1`, `2`, `7`, `5`, `4`],
-      after: [`c`, `d`, '1'],
+      after: [`c`, `d`],
     },
   ])(
     'has all characters before : $before , the newline  and none after : $after',
@@ -143,7 +143,9 @@ describe('character-copier', () => {
       sut.copy();
 
       expect(dest.getWrittenChars()).toStrictEqual(before);
-      expect(dest.getWrittenChars()).not.toStrictEqual(after);
+      expect(
+        dest.getWrittenChars().some((val) => after.includes(val))
+      ).not.toBe(true);
     }
   );
 });
