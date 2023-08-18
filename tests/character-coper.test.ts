@@ -6,7 +6,7 @@ describe('character-copier', () => {
   //[ ] Once character , ending in newline
   //[ ] Two characters , ending in newline
   //[ ] Many characters, ending in newline
-  //[ ] Order of characters
+  //[ ] Order of characters copied should be maintained
   //[ ] Characters after newline should not be written
 
   describe('when no character is read', () => {
