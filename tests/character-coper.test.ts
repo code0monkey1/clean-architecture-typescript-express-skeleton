@@ -3,7 +3,8 @@ import {
   getDestination,
   getSource,
   isIntersection,
-} from './presentation/copier-helper';
+} from './presentation/copier.helper';
+
 describe('character-copier', () => {
   //[ ] No characters , ending in newline
   //[ ] Once character , ending in newline
@@ -12,7 +13,7 @@ describe('character-copier', () => {
   //[ ] Order of characters
   //[ ] Characters after newline should not be written
 
-  describe('reads character from source', () => {
+  describe('when no character is read', () => {
     //[+] No characters , ending in newline
     it('does not call the destination method if there is no char is source', () => {
       const src: Source = getSource([]);
@@ -25,8 +26,11 @@ describe('character-copier', () => {
 
       expect(dest.writeChar).toBeCalledTimes(0);
     });
+  });
 
-    //[+] Once character , ending in newline
+  //[+] Once character , ending in newline
+
+  describe('when 1 character is read', () => {
     it.each([{ char: 'a' }, { char: 'b' }, { char: 'c' }, { char: 'd' }])(
       'reads first char from source',
       ({ char }) => {
@@ -41,7 +45,10 @@ describe('character-copier', () => {
         expect(dest.writeChar).toHaveBeenCalledWith(char);
       }
     );
-    //[+] Two characters , ending in newline
+  });
+
+  //[+] Two characters , ending in newline
+  describe('Two characters , ending in newline', () => {
     it.each([
       { chars: ['a', 'b'] },
       { chars: ['c', 'd'] },
@@ -59,7 +66,10 @@ describe('character-copier', () => {
       expect(dest.writeChar).toHaveBeenCalledWith(chars[1]);
       expect(dest.writeChar).toBeCalledTimes(2);
     });
-    //[+] Many characters, ending in newline
+  });
+
+  //[+] Many characters, ending in newline
+  describe('Many characters, ending in newline', () => {
     it.each([
       { chars: ['a', 'b', 'c', 'd', 'g', 'c'] },
       { chars: ['c', 'd', 'e', 'f', 'd', 'f', 'd'] },
@@ -86,12 +96,15 @@ describe('character-copier', () => {
         );
       }
     );
-    //[+] Order of characters
+  });
+
+  //[+] Order of characters
+  describe('Order of characters', () => {
     it.each([
       { chars: ['a', 'b', 'c', 'd', 'g', 'c'] },
       { chars: ['c', 'd', 'e', 'f', 'd', 'f', 'd'] },
       { chars: ['e', 'f', 'g', 'd', 'd', ''] },
-    ])('has all characters copied in teh same order', ({ chars }) => {
+    ])('has all characters copied in the same order', ({ chars }) => {
       const src: Source = getSource(chars);
 
       const dest = getDestination();
@@ -104,7 +117,10 @@ describe('character-copier', () => {
 
       expect(dest.getWrittenChars()).toEqual(chars);
     });
-    //[+] Characters after newline should not be written
+  });
+
+  //[+] Characters after newline should not be written
+  describe('Characters after newline should not be written', () => {
     it.each([
       {
         chars: [`1`, `2`, `3`, `4`, `5`, `6`, `7`, `\n`, `a`, `b`],
