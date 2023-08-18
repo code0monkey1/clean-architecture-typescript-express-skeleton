@@ -4,6 +4,8 @@ export class Copier {
     private readonly dest: Destination
   ) {}
 
+  /* The `copy()` method in the `Copier` class is responsible for copying characters from the source
+  (`src`) to the destination (`dest`). */
   copy() {
     let char = this.src.readChar();
 
