@@ -9,8 +9,8 @@ describe('character-copier', () => {
   //[ ] Order of characters copied should be maintained
   //[ ] Characters after newline should not be written
 
+  //[+] No characters , ending in newline
   describe('when no character is read', () => {
-    //[+] No characters , ending in newline
     it('does not call the destination method if there is no char is source', () => {
       const src: Source = getSource([]);
 
