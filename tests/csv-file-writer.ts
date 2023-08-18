@@ -10,6 +10,18 @@ class CsvFileWriter {
       this.fileSystem.writeLine(fileName, customerToString(customer));
     });
   }
+
+  writeBatchedCustomers(
+    fileName: string,
+    customers: Customer[],
+    batchSize: number
+  ) {
+    while (customers.length) {
+      const customersToWrite = customers.splice(batchSize);
+
+      this.writeCustomers(fileName, customersToWrite);
+    }
+  }
 }
 
 export default CsvFileWriter;
