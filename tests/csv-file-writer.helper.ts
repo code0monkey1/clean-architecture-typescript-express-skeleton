@@ -5,8 +5,8 @@ export const customerToString = (customer: Customer) => {
 };
 
 export const getFileSystem = () => {
-  let fileNames: string[];
-  let lines: string[];
+  const fileNames: string[] = [];
+  const lines: string[] = [];
   return {
     writeLine: jest.fn((fileName: string, line: string) => {
       fileNames.push(fileName);
