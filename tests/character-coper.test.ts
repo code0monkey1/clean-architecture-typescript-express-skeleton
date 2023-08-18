@@ -1,9 +1,5 @@
-import { Copier, Source } from './presentation/character-copier';
-import {
-  getDestination,
-  getSource,
-  isIntersection,
-} from './presentation/copier.helper';
+import { Copier, Source } from './character-copier';
+import { getDestination, getSource, isIntersection } from './copier.helper';
 
 describe('character-copier', () => {
   //[ ] No characters , ending in newline
