@@ -1,5 +1,9 @@
 import { Copier, Source } from './presentation/character-copier';
-import { getDestination, getSource } from './presentation/copier-helper';
+import {
+  getDestination,
+  getSource,
+  isIntersection,
+} from './presentation/copier-helper';
 describe('character-copier', () => {
   // beforeEach(() => {
   //   jest.clearAllMocks();
@@ -29,94 +33,85 @@ describe('character-copier', () => {
   //     expect(writeChar).toBeCalledTimes(0);
   //   });
 
-  //   //[+] Once character , ending in newline
-  //   it.each([{ char: 'a' }, { char: 'b' }, { char: 'c' }, { char: 'd' }])(
-  //     'reads first char from source',
-  //     ({ char }) => {
-  //       const src: Source = getSource();
+  //[+] Once character , ending in newline
+  it.each([{ char: 'a' }, { char: 'b' }, { char: 'c' }, { char: 'd' }])(
+    'reads first char from source',
+    ({ char }) => {
+      const src: Source = getSource([char]);
 
-  //       const dest: Destination = getDestination();
+      const dest = getDestination();
 
-  //       readChar.mockReturnValue('\n');
+      const sut = new Copier(src, dest);
 
-  //       readChar.mockReturnValueOnce(char);
-  //       readChar.mockReturnValue('\n');
+      sut.copy();
 
-  //       const sut = new Copier(src, dest);
+      expect(dest.writeChar).toHaveBeenCalledWith(char);
+    }
+  );
+  //[+] Two characters , ending in newline
+  it.each([
+    { chars: ['a', 'b'] },
+    { chars: ['c', 'd'] },
+    { chars: ['e', 'f'] },
+  ])('reads exactly 2 times before encountering a newline', ({ chars }) => {
+    const src: Source = getSource(chars);
 
-  //       sut.copy();
+    const dest = getDestination();
 
-  //       expect(writeChar).toHaveBeenCalledWith(char);
-  //     }
-  //   );
-  //   //[+] Two characters , ending in newline
-  //   it.each([{ chars: 'ab' }, { chars: 'cd' }, { chars: 'ef' }])(
-  //     'reads exactly 2 times before encountering a newline',
-  //     ({ chars }) => {
-  //       const src: Source = getSource();
+    expect(dest.writeChar).toHaveBeenCalledWith(chars[0]);
+    expect(dest.writeChar).toHaveBeenCalledWith(chars[1]);
 
-  //       const dest: Destination = getDestination();
+    const sut = new Copier(src, dest);
 
-  //       readChar.mockReturnValueOnce(chars[0]);
-  //       readChar.mockReturnValueOnce(chars[1]);
-  //       readChar.mockReturnValue('\n');
+    sut.copy();
 
-  //       const sut = new Copier(src, dest);
+    expect(dest.writeChar).toBeCalledTimes(2);
+  });
+  //[+] Many characters, ending in newline
+  it.each([
+    { chars: ['a', 'b', 'c', 'd', 'g', 'c'] },
+    { chars: ['c', 'd', 'e', 'f', 'd', 'f', 'd'] },
+    { chars: ['e', 'f', 'g', 'd', 'd', ''] },
+  ])(
+    'reads exactly $chars.length times before encountering a newline',
+    ({ chars }) => {
+      const src: Source = getSource(chars);
 
-  //       sut.copy();
+      const dest = getDestination();
 
-  //       expect(writeChar).toBeCalledTimes(2);
-  //     }
-  //   );
-  //   //[+] Many characters, ending in newline
-  //   it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
-  //     'reads exactly $chars.length times before encountering a newline',
-  //     ({ chars }) => {
-  //       const src: Source = getSource();
+      const sut = new Copier(src, dest);
 
-  //       const dest: Destination = getDestination();
+      sut.copy();
 
-  //       readMultipleChars(chars);
-  //       readChar.mockReturnValue('\n');
+      expect(dest.writeChar).toBeCalledTimes(chars.length);
 
-  //       const sut = new Copier(src, dest);
+      //multiple characters written (order does not matter)
+      chars.forEach((c) => expect(dest.writeChar).toHaveBeenCalledWith(c));
 
-  //       sut.copy();
+      // confirm last called character
+      expect(dest.writeChar).toHaveBeenLastCalledWith(chars[chars.length - 1]);
+    }
+  );
+  //[+] Order of characters
+  it.each([
+    { chars: ['a', 'b', 'c', 'd', 'g', 'c'] },
+    { chars: ['c', 'd', 'e', 'f', 'd', 'f', 'd'] },
+    { chars: ['e', 'f', 'g', 'd', 'd', ''] },
+  ])('has all characters copied in teh same order', ({ chars }) => {
+    const src: Source = getSource(chars);
 
-  //       expect(writeChar).toBeCalledTimes(chars.length);
+    const dest = getDestination();
 
-  //       //multiple characters written (order does not matter)
-  //       chars
-  //         .split('')
-  //         .forEach((c) => expect(writeChar).toHaveBeenCalledWith(c));
+    const sut = new Copier(src, dest);
 
-  //       // confirm last called character
-  //       expect(writeChar).toHaveBeenLastCalledWith(chars[chars.length - 1]);
-  //     }
-  //   );
-  //   //[+] Order of characters
-  //   it.each([{ chars: 'abcdgc' }, { chars: 'cdedfd' }, { chars: 'efgdds' }])(
-  //     'has all characters copied in teh same order',
-  //     ({ chars }) => {
-  //       const src: Source = getSource();
+    sut.copy();
 
-  //       const dest: Destination = getDestination();
+    expect(dest.writeChar).toBeCalledTimes(chars.length);
 
-  //       readMultipleChars(chars);
-  //       readChar.mockReturnValue('\n');
-
-  //       const sut = new Copier(src, dest);
-
-  //       sut.copy();
-
-  //       expect(writeChar).toBeCalledTimes(chars.length);
-
-  //       expect(copiedChars).toEqual(chars.split(''));
-  //     }
-  //   );
-  // });
+    expect(dest.getWrittenChars()).toEqual(chars);
+  });
   //[+] Characters after newline should not be written
-  it.only.each([
+  it.each([
     {
       chars: [`1`, `2`, `3`, `4`, `5`, `6`, `7`, `\n`, `a`, `b`],
       before: [`1`, `2`, `3`, `4`, `5`, `6`, `7`],
@@ -130,10 +125,6 @@ describe('character-copier', () => {
   ])(
     'has all characters before : $before , the newline  and none after : $after',
     ({ chars, before, after }) => {
-      console.log('chars are', chars);
-      console.log('before is', before);
-      console.log('after is', after);
-
       const src: Source = getSource(chars);
 
       const dest = getDestination();
@@ -143,9 +134,7 @@ describe('character-copier', () => {
       sut.copy();
 
       expect(dest.getWrittenChars()).toStrictEqual(before);
-      expect(
-        dest.getWrittenChars().some((val) => after.includes(val))
-      ).not.toBe(true);
+      expect(!isIntersection(after, dest.getWrittenChars())).toBe(true);
     }
   );
 });

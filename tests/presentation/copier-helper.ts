@@ -3,6 +3,7 @@ export const getSource = (elements: string[]) => {
 
   elements.forEach((e) => mockCharReader.mockReturnValueOnce(e));
 
+  mockCharReader.mockReturnValue('\n');
   return {
     readChar: mockCharReader,
   };
