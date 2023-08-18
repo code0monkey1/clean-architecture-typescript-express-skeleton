@@ -35,10 +35,10 @@ describe('csv-file-writer', () => {
 
     //assert
     expect(fs.writeLine).toBeCalledTimes(1);
-    expect(fs.getFileNames()).toStrictEqual([fileName]);
+    expect(fs.getFileName()).toBe(fileName);
     expect(fs.getLines()).toStrictEqual([customerToString(customer)]);
-    expect(fs.getFileNames().length).toBe(1);
-    expect(fs.getLines().length).toBe(1);
+    // expect(fs.getFileNames().length).toBe(1);
+    // expect(fs.getLines().length).toBe(1);
   });
 
   //given : multiple customer objects are present
@@ -72,12 +72,12 @@ describe('csv-file-writer', () => {
 
     //assert
     expect(fs.writeLine).toBeCalledTimes(customers.length);
-    expect(fs.getFileNames()).toContain(fileName);
+    expect(fs.getFileName()).toBe(fileName);
     expect(fs.getLines()).toStrictEqual(
       customers.map((c) => customerToString(c))
     );
     //has same number of items as the number of customers
-    expect(fs.getFileNames().length).toBe(customers.length);
+    expect(fs.getFileName().length).toBe(1);
     expect(fs.getLines().length).toBe(customers.length);
   });
 });
