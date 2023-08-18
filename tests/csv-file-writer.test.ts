@@ -72,7 +72,7 @@ describe('csv-file-writer', () => {
 
     //assert
     expect(fs.writeLine).toBeCalledTimes(customers.length);
-    // expect(fs.getFileNames()).toStrictEqual([fileName]);
+    expect(fs.getFileNames()).toContain(fileName);
     // expect(fs.getLines()).toStrictEqual(
     //   customers.map((c) => customerToString(c))
     // );
