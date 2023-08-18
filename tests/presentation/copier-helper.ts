@@ -1,28 +1,20 @@
-export const copiedChars: string[] = [];
+export const getSource = (elements: string[]) => {
+  const mockCharReader = jest.fn();
 
-export const readChar = jest.fn();
+  elements.forEach((e) => mockCharReader.mockReturnValueOnce(e));
 
-export const getSource = () => {
   return {
-    readChar,
+    readChar: mockCharReader,
   };
 };
-export const writeChar = jest.fn((c: string) => {
-  copiedChars.push(c);
-});
 
 export const getDestination = () => {
+  const copiedChars: string[] = [];
+
   return {
-    writeChar,
+    writeChar: jest.fn((c: string) => {
+      copiedChars.push(c);
+    }),
+    getWrittenChars: () => copiedChars,
   };
-};
-
-export const readMultipleChars = (str: string) => {
-  str.split('').forEach((c: string) => {
-    readChar.mockReturnValueOnce(c);
-  });
-};
-
-export const clearCopiedCharsArray = () => {
-  while (copiedChars.length) copiedChars.pop();
 };

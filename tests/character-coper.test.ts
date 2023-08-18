@@ -1,5 +1,5 @@
 import { Copier, Source } from './presentation/character-copier';
-
+import { getDestination, getSource } from './presentation/copier-helper';
 describe('character-copier', () => {
   // beforeEach(() => {
   //   jest.clearAllMocks();
@@ -125,7 +125,7 @@ describe('character-copier', () => {
     {
       chars: [`1`, `2`, `7`, `5`, `4`, `\n`, `c`, `d`],
       before: [`1`, `2`, `7`, `5`, `4`],
-      after: [`c`, `d`],
+      after: [`c`, `d`, '1'],
     },
   ])(
     'has all characters before : $before , the newline  and none after : $after',
@@ -143,29 +143,7 @@ describe('character-copier', () => {
       sut.copy();
 
       expect(dest.getWrittenChars()).toStrictEqual(before);
+      expect(dest.getWrittenChars()).not.toStrictEqual(after);
     }
   );
 });
-
-export const readChar = jest.fn();
-
-export const getSource = (elements: string[]) => {
-  const mockCharReader = jest.fn();
-
-  elements.forEach((e) => mockCharReader.mockReturnValueOnce(e));
-
-  return {
-    readChar: mockCharReader,
-  };
-};
-
-const getDestination = () => {
-  const copiedChars: string[] = [];
-
-  return {
-    writeChar: jest.fn((c: string) => {
-      copiedChars.push(c);
-    }),
-    getWrittenChars: () => copiedChars,
-  };
-};
