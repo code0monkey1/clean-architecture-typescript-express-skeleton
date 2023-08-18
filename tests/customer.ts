@@ -1,5 +1,8 @@
 class Customer {
-  constructor(private name: string, private contactNumber: string) {}
+  constructor(
+    public readonly name: string,
+    public readonly contactNumber: string
+  ) {}
 
   toString() {
     console.log(`${this.name},${this.contactNumber}`);

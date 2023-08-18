@@ -1,5 +1,5 @@
-interface FileSystem {
+interface FS {
   writeLine(fileName: string, line: string): void;
 }
 
-export default FileSystem;
+export default FS;
