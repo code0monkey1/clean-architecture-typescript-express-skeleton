@@ -1,5 +1,5 @@
 import CsvFileWriter from './csv-file-writer';
-import { getFileSystem } from './csv-file-writer.helper';
+import { customerToString, getFileSystem } from './csv-file-writer.helper';
 import Customer from './customer';
 
 describe('csv-file-writer', () => {
@@ -27,13 +27,16 @@ describe('csv-file-writer', () => {
     //arrange
     const fs = getFileSystem();
     const customer = new Customer('Glen', '32');
+    const fileName = 'myfile.pdf';
+
     //act
     const sut = new CsvFileWriter(fs);
-
-    sut.writeCustomers('myfile.pdf', [customer]);
+    sut.writeCustomers(fileName, [customer]);
 
     //assert
     expect(fs.writeLine).toBeCalledTimes(1);
+    expect(fs.getFileNames()).toStrictEqual([fileName]);
+    expect(fs.getLines()).toStrictEqual([customerToString(customer)]);
   });
 
   //given : multiple customer objects are present
