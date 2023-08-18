@@ -11,15 +11,21 @@ describe('character-copier', () => {
 
   //[+] No characters , ending in newline
   describe('when no character is read', () => {
-    it('does not call the destination method if there is no char is source', () => {
+    // Given no characters, ending in newline
+    // When the copier is run
+    // Then no characters should be written to the destination
+    it('does not call the destination method if there is no character in the source', () => {
+      // Given no characters, ending in newline
       const src: Source = getSource([]);
 
       const dest = getDestination();
 
       const sut = new Copier(src, dest);
 
+      //when
       sut.copy();
 
+      //then
       expect(dest.writeChar).toBeCalledTimes(0);
     });
   });
