@@ -18,3 +18,6 @@ export const getDestination = () => {
     getWrittenChars: () => copiedChars,
   };
 };
+
+export const isIntersection = (a: string[], b: string[]) =>
+  a.some((e) => b.includes(e));
