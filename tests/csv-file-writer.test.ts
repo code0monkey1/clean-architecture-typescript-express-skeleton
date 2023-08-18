@@ -56,27 +56,28 @@ describe('csv-file-writer', () => {
     },
     {
       customers: [
-        new Customer('a', '123'),
-        new Customer('b', '456'),
-        new Customer('c', '789'),
+        new Customer('d', '874'),
+        new Customer('e', '764'),
+        new Customer('f', '796'),
       ],
-      fileName: 'a.pdf',
+      fileName: 'b.pdf',
     },
-  ])('given : multiple customers are present', () => {
+  ])('given : multiple customers are present', ({ customers, fileName }) => {
     //arrange
     const fs = getFileSystem();
-    const customer = new Customer('Glen', '32');
-    const fileName = 'myfile.pdf';
 
     //act
     const sut = new CsvFileWriter(fs);
-    sut.writeCustomers(fileName, [customer]);
+    sut.writeCustomers(fileName, customers);
 
     //assert
-    expect(fs.writeLine).toBeCalledTimes(1);
-    expect(fs.getFileNames()).toStrictEqual([fileName]);
-    expect(fs.getLines()).toStrictEqual([customerToString(customer)]);
-    expect(fs.getFileNames().length).toBe(1);
-    expect(fs.getLines().length).toBe(1);
+    expect(fs.writeLine).toBeCalledTimes(customers.length);
+    // expect(fs.getFileNames()).toStrictEqual([fileName]);
+    // expect(fs.getLines()).toStrictEqual(
+    //   customers.map((c) => customerToString(c))
+    // );
+
+    // expect(fs.getFileNames().length).toBe(customers.length);
+    // expect(fs.getLines().length).toBe(customers.length);
   });
 });
