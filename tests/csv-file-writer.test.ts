@@ -76,7 +76,7 @@ describe('csv-file-writer', () => {
     expect(fs.getLines()).toStrictEqual(
       customers.map((c) => customerToString(c))
     );
-
+    //has same number of items as the number of customers
     expect(fs.getFileNames().length).toBe(customers.length);
     expect(fs.getLines().length).toBe(customers.length);
   });
