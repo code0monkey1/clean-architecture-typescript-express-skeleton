@@ -35,5 +35,13 @@ be used to retrieve the characters that have been written to the destination. */
   };
 };
 
+/* The `isIntersection` function takes in two arrays `a` and `b` as parameters. It checks
+if there is any element in array `a` that is also present in array `b`. It does this by
+using the `some` method on array `a`, which returns `true` if at least one element
+satisfies the provided condition. The condition being checked is whether `b` includes
+the current element `e` from array `a`. If there is at least one element that satisfies
+this condition, the function returns `true`, indicating that there is an intersection
+between the two arrays. Otherwise, it returns `false`, indicating that there is no
+intersection. */
 export const isIntersection = (a: string[], b: string[]) =>
   a.some((e) => b.includes(e));
