@@ -45,5 +45,38 @@ describe('csv-file-writer', () => {
   //when : we try to write the objects info to file
   // then :the exact number and the exact order of customers are written to file
 
-  it('given : multiple customers are present', () => {});
+  it.each([
+    {
+      customers: [
+        new Customer('a', '123'),
+        new Customer('b', '456'),
+        new Customer('c', '789'),
+      ],
+      fileName: 'a.pdf',
+    },
+    {
+      customers: [
+        new Customer('a', '123'),
+        new Customer('b', '456'),
+        new Customer('c', '789'),
+      ],
+      fileName: 'a.pdf',
+    },
+  ])('given : multiple customers are present', () => {
+    //arrange
+    const fs = getFileSystem();
+    const customer = new Customer('Glen', '32');
+    const fileName = 'myfile.pdf';
+
+    //act
+    const sut = new CsvFileWriter(fs);
+    sut.writeCustomers(fileName, [customer]);
+
+    //assert
+    expect(fs.writeLine).toBeCalledTimes(1);
+    expect(fs.getFileNames()).toStrictEqual([fileName]);
+    expect(fs.getLines()).toStrictEqual([customerToString(customer)]);
+    expect(fs.getFileNames().length).toBe(1);
+    expect(fs.getLines().length).toBe(1);
+  });
 });
