@@ -4,7 +4,6 @@ import {
   getCustomer,
   getFileWriter,
 } from './csv-file-writer.helper';
-import Customer from './customer';
 
 describe('csv-file-writer', () => {
   //'given : no customer object'
@@ -55,17 +54,17 @@ describe('csv-file-writer', () => {
   it.each([
     {
       customers: [
-        new Customer('a', '123'),
-        new Customer('b', '456'),
-        new Customer('c', '789'),
+        getCustomer('a', '123'),
+        getCustomer('b', '456'),
+        getCustomer('c', '789'),
       ],
       fileName: 'a.pdf',
     },
     {
       customers: [
-        new Customer('d', '874'),
-        new Customer('e', '764'),
-        new Customer('f', '796'),
+        getCustomer('d', '874'),
+        getCustomer('e', '764'),
+        getCustomer('f', '796'),
       ],
       fileName: 'b.pdf',
     },
