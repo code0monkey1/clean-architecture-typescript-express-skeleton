@@ -1,13 +1,13 @@
 import { customerToString } from './csv-file-writer.helper';
 import Customer from './customer';
-import FS from './file-system';
+import FileWriter from './file-writer';
 
 class CsvFileWriter {
-  constructor(private readonly fileSystem: FS) {}
+  constructor(private readonly fileWriter: FileWriter) {}
 
   writeCustomers(fileName: string, customers: Customer[]) {
     customers.forEach((customer) => {
-      this.fileSystem.writeLine(fileName, customerToString(customer));
+      this.fileWriter.writeLine(fileName, customerToString(customer));
     });
   }
 
