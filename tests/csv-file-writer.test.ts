@@ -59,7 +59,6 @@ describe('csv-file-writer', () => {
         getCustomer('b', '456'),
         getCustomer('c', '789'),
       ],
-      fileName: 'a.pdf',
     },
     {
       customers: [
@@ -67,11 +66,11 @@ describe('csv-file-writer', () => {
         getCustomer('e', '764'),
         getCustomer('f', '796'),
       ],
-      fileName: 'b.pdf',
     },
-  ])('given : multiple customers are present', ({ customers, fileName }) => {
+  ])('given : multiple customers are present', ({ customers }) => {
     //arrange
     const fileWriter = getFileWriter();
+    const fileName = 'narnia.ts';
 
     //act
     const sut = getCsvFileWriter(fileWriter);
