@@ -17,3 +17,7 @@ export const getFileWriter = () => {
     },
   };
 };
+
+export const getCustomer = (name: string, contactNumber: string): Customer => {
+  return new Customer(name, contactNumber);
+};

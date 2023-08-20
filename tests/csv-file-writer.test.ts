@@ -1,5 +1,9 @@
 import CsvFileWriter from './csv-file-writer';
-import { customerToString, getFileWriter } from './csv-file-writer.helper';
+import {
+  customerToString,
+  getCustomer,
+  getFileWriter,
+} from './csv-file-writer.helper';
 import Customer from './customer';
 
 describe('csv-file-writer', () => {
@@ -26,7 +30,7 @@ describe('csv-file-writer', () => {
   it('given : single customer object is present', () => {
     //arrange
     const fileWriter = getFileWriter();
-    const customer = new Customer('Glen', '32');
+    const customer = getCustomer('Glen', '32');
     const fileName = 'myfile.pdf';
 
     //act
