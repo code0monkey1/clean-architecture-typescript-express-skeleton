@@ -1,9 +1,16 @@
 class Customer {
   constructor(
-    public readonly name: string,
-    public readonly contactNumber: string
+    private readonly name: string,
+    private readonly contactNumber: string
   ) {}
 
+  public getName() {
+    this.name;
+  }
+
+  public setName(name: string) {
+    this.name = name;
+  }
   toString() {
     console.log(`${this.name},${this.contactNumber}`);
   }
