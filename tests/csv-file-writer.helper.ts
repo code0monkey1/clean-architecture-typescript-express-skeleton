@@ -35,7 +35,10 @@ export const assertCustomerHasBeenWritten = (
   customer: Customer
 ) => {
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  expect(fileWriter.writeLine).toHaveBeenCalledWith(fileName, customer);
+  expect(fileWriter.writeLine).toHaveBeenCalledWith(
+    fileName,
+    customerToString(customer)
+  );
 };
 
 export const assertCustomersHaveBeenWritten = (
