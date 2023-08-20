@@ -1,4 +1,5 @@
 import {
+  assertCustomersHaveBeenWritten,
   customerToString,
   getCsvFileWriter,
   getCustomer,
@@ -78,12 +79,7 @@ describe('csv-file-writer', () => {
     sut.writeCustomers(fileName, customers);
 
     //assert
-    expect(fileWriter.writeLine).toBeCalledTimes(customers.length);
-
-    expect(fileWriter.getLines()).toStrictEqual(
-      customers.map((c) => customerToString(c))
-    );
-
+    assertCustomersHaveBeenWritten(fileWriter, fileName, customers);
     //has same number of items as the number of customers
 
     expect(fileWriter.getLines().length).toBe(customers.length);

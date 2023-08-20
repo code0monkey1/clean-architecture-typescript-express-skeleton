@@ -1,4 +1,5 @@
 import CsvFileWriter from './csv-file-writer';
+
 import Customer from './customer';
 import FileWriter from './file-writer';
 
@@ -26,4 +27,23 @@ export const getCustomer = (name: string, contactNumber: string): Customer => {
 
 export const getCsvFileWriter = (fileWriter: FileWriter): CsvFileWriter => {
   return new CsvFileWriter(fileWriter);
+};
+
+export const assertCustomerHasBeenWritten = (
+  fileWriter: FileWriter,
+  fileName: string,
+  customer: Customer
+) => {
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  expect(fileWriter.writeLine).toHaveBeenCalledWith(fileName, customer);
+};
+
+export const assertCustomersHaveBeenWritten = (
+  fileWriter: FileWriter,
+  fileName: string,
+  customers: Customer[]
+) => {
+  customers.forEach((customer) => {
+    assertCustomerHasBeenWritten(fileWriter, fileName, customer);
+  });
 };
