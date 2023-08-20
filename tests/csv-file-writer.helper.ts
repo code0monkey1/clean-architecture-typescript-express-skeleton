@@ -4,7 +4,7 @@ export const customerToString = (customer: Customer) => {
   return `${customer.name},${customer.contactNumber}`;
 };
 
-export const getFileSystem = () => {
+export const getFileWriter = () => {
   const lines: string[] = [];
 
   return {

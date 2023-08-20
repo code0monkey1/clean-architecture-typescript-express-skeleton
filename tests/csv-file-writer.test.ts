@@ -1,5 +1,5 @@
 import CsvFileWriter from './csv-file-writer';
-import { customerToString, getFileSystem } from './csv-file-writer.helper';
+import { customerToString, getFileWriter } from './csv-file-writer.helper';
 import Customer from './customer';
 
 describe('csv-file-writer', () => {
@@ -9,15 +9,15 @@ describe('csv-file-writer', () => {
 
   it('given : no customer object', () => {
     //arrange
-    const fs = getFileSystem();
+    const fileWriter = getFileWriter();
 
     //act
-    const sut = new CsvFileWriter(fs);
+    const sut = new CsvFileWriter(fileWriter);
 
     sut.writeCustomers('myfile.pdf', []);
 
     //assert
-    expect(fs.writeLine).toBeCalledTimes(0);
+    expect(fileWriter.writeLine).toBeCalledTimes(0);
   });
 
   //given : single customer object is present
@@ -25,18 +25,18 @@ describe('csv-file-writer', () => {
   // then : only single object with the given info gets written
   it('given : single customer object is present', () => {
     //arrange
-    const fs = getFileSystem();
+    const fileWriter = getFileWriter();
     const customer = new Customer('Glen', '32');
     const fileName = 'myfile.pdf';
 
     //act
-    const sut = new CsvFileWriter(fs);
+    const sut = new CsvFileWriter(fileWriter);
     sut.writeCustomers(fileName, [customer]);
 
     //assert
-    expect(fs.writeLine).toBeCalledTimes(1);
-    expect(fs.getFileName()).toBe(fileName);
-    expect(fs.getLines()).toStrictEqual([customerToString(customer)]);
+    expect(fileWriter.writeLine).toBeCalledTimes(1);
+    expect(fileWriter.writeLine).toHaveBeenCalledWith(fileName, customer);
+    expect(fileWriter.getLines()).toStrictEqual([customerToString(customer)]);
     // expect(fs.getFileNames().length).toBe(1);
     // expect(fs.getLines().length).toBe(1);
   });
@@ -64,21 +64,21 @@ describe('csv-file-writer', () => {
     },
   ])('given : multiple customers are present', ({ customers, fileName }) => {
     //arrange
-    const fs = getFileSystem();
+    const fileWriter = getFileWriter();
 
     //act
-    const sut = new CsvFileWriter(fs);
+    const sut = new CsvFileWriter(fileWriter);
     sut.writeCustomers(fileName, customers);
 
     //assert
-    expect(fs.writeLine).toBeCalledTimes(customers.length);
-    expect(fs.getFileName()).toBe(fileName);
-    expect(fs.getLines()).toStrictEqual(
+    expect(fileWriter.writeLine).toBeCalledTimes(customers.length);
+
+    expect(fileWriter.getLines()).toStrictEqual(
       customers.map((c) => customerToString(c))
     );
 
     //has same number of items as the number of customers
-    expect(fs.getFileName()).toBe(fileName);
-    expect(fs.getLines().length).toBe(customers.length);
+
+    expect(fileWriter.getLines().length).toBe(customers.length);
   });
 });
