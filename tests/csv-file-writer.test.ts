@@ -35,7 +35,10 @@ describe('csv-file-writer', () => {
 
     //assert
     expect(fileWriter.writeLine).toBeCalledTimes(1);
-    expect(fileWriter.writeLine).toHaveBeenCalledWith(fileName, customer);
+    expect(fileWriter.writeLine).toHaveBeenCalledWith(
+      fileName,
+      customerToString(customer)
+    );
     expect(fileWriter.getLines()).toStrictEqual([customerToString(customer)]);
     // expect(fs.getFileNames().length).toBe(1);
     // expect(fs.getLines().length).toBe(1);
