@@ -1,6 +1,6 @@
-import CsvFileWriter from './csv-file-writer';
 import {
   customerToString,
+  getCsvFileWriter,
   getCustomer,
   getFileWriter,
 } from './csv-file-writer.helper';
@@ -15,7 +15,7 @@ describe('csv-file-writer', () => {
     const fileWriter = getFileWriter();
 
     //act
-    const sut = new CsvFileWriter(fileWriter);
+    const sut = getCsvFileWriter(fileWriter);
 
     sut.writeCustomers('myfile.pdf', []);
 
@@ -33,7 +33,7 @@ describe('csv-file-writer', () => {
     const fileName = 'myfile.pdf';
 
     //act
-    const sut = new CsvFileWriter(fileWriter);
+    const sut = getCsvFileWriter(fileWriter);
     sut.writeCustomers(fileName, [customer]);
 
     //assert
@@ -73,7 +73,8 @@ describe('csv-file-writer', () => {
     const fileWriter = getFileWriter();
 
     //act
-    const sut = new CsvFileWriter(fileWriter);
+    const sut = getCsvFileWriter(fileWriter);
+
     sut.writeCustomers(fileName, customers);
 
     //assert
