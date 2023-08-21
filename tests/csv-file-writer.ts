@@ -22,7 +22,9 @@ class CsvFileWriter {
 
       const [name, ext] = this.name_ext(fileName);
 
-      const indexed_fileName = name + fileIndex++ + ext;
+      const indexed_fileName = name + fileIndex + ext;
+
+      fileIndex++;
 
       this.writeCustomers(indexed_fileName, customersToWrite);
     }
