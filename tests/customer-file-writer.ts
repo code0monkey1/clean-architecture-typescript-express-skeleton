@@ -1,7 +1,9 @@
 import Customer from './customer';
 import FileWriter from './file-writer';
-
-class CsvFileWriter {
+export class BatchedCustomerFileWriter {
+  constructor(private readonly customerFileWriter: CustomerFileWriter) {}
+}
+export class CustomerFileWriter {
   constructor(private readonly fileWriter: FileWriter) {}
 
   writeCustomers(fileName: string, customers: Customer[]) {
@@ -41,5 +43,3 @@ class CsvFileWriter {
     return `${customer.name},${customer.contactNumber}`;
   };
 }
-
-export default CsvFileWriter;

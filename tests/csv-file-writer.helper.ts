@@ -1,4 +1,4 @@
-import CsvFileWriter from './csv-file-writer';
+import { CustomerFileWriter } from './customer-file-writer';
 
 import Customer from './customer';
 import FileWriter from './file-writer';
@@ -25,8 +25,10 @@ export const getCustomer = (name: string, contactNumber: string): Customer => {
   return new Customer(name, contactNumber);
 };
 
-export const getCsvFileWriter = (fileWriter: FileWriter): CsvFileWriter => {
-  return new CsvFileWriter(fileWriter);
+export const getCsvFileWriter = (
+  fileWriter: FileWriter
+): CustomerFileWriter => {
+  return new CustomerFileWriter(fileWriter);
 };
 
 export const assertCustomerHasBeenWritten = (
