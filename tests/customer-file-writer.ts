@@ -27,8 +27,15 @@ export class BatchedCustomerFileWriter {
   }
 
   private name_ext = (file: string) => {
-    const name = file.slice(0, file.lastIndexOf('.'));
-    const ext = file.slice(file.lastIndexOf('.'));
+    const extn_index = file.lastIndexOf('.');
+
+    // in case the file has no extension
+    if (extn_index === -1) {
+      return [file, ''];
+    }
+
+    const name = file.slice(0, extn_index);
+    const ext = file.slice(extn_index);
 
     return [name, ext];
   };
