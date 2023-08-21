@@ -116,15 +116,15 @@ describe('batched customers', () => {
 
     sut.writeBatchedCustomers(fileName, customers, 12);
 
-    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
-      'myfile0.csv',
-      customerToString(customers[12])
-    );
-
     assertCustomersHaveBeenWritten(
       fileWriter,
       'myfile0.csv',
       customers.slice(0, 12)
+    );
+
+    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+      'myfile0.csv',
+      customerToString(customers[12])
     );
   });
   it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
