@@ -1,5 +1,6 @@
 import {
   assertCustomersHaveBeenWritten,
+  createCustomers,
   customerToString,
   getCsvFileWriter,
   getCustomer,
@@ -87,27 +88,7 @@ describe('csv-file-writer', () => {
 
 describe('batched customers', () => {
   it('creates only 1 file, when customers are 12 ', () => {
-    const customers = [
-      getCustomer('0', '123'),
-      getCustomer('1', '123'),
-
-      getCustomer('2', '123'),
-
-      getCustomer('3', '123'),
-      getCustomer('4', '123'),
-
-      getCustomer('5', '123'),
-
-      getCustomer('6', '123'),
-      getCustomer('7', '123'),
-
-      getCustomer('8', '123'),
-
-      getCustomer('9', '123'),
-      getCustomer('10', '123'),
-
-      getCustomer('11', '123'),
-    ];
+    const customers = createCustomers(12);
     const fileName = 'myfile.csv';
 
     const fileWriter = getFileWriter();
@@ -118,7 +99,7 @@ describe('batched customers', () => {
 
     expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
       'myfile0.csv',
-      getCustomer('11', '123').toString()
+      getCustomer('12', '12').toString()
     );
 
     assertCustomersHaveBeenWritten(
@@ -130,34 +111,7 @@ describe('batched customers', () => {
   it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
     //arrange
 
-    const customers = [
-      getCustomer('0', '123'),
-      getCustomer('1', '123'),
-
-      getCustomer('2', '123'),
-
-      getCustomer('3', '123'),
-      getCustomer('4', '123'),
-
-      getCustomer('5', '123'),
-
-      getCustomer('6', '123'),
-      getCustomer('7', '123'),
-
-      getCustomer('8', '123'),
-
-      getCustomer('9', '123'),
-      getCustomer('10', '123'),
-
-      getCustomer('11', '123'),
-
-      getCustomer('12', '123'),
-      getCustomer('13', '123'),
-
-      getCustomer('14', '123'),
-
-      getCustomer('15', '123'),
-    ];
+    const customers = createCustomers(15);
 
     const fileName = 'myfile.csv';
 
@@ -177,19 +131,5 @@ describe('batched customers', () => {
       'myfile1.csv',
       customers.slice(12)
     );
-  });
-});
-
-describe('functional testings', () => {
-  it('will splice as expected', () => {
-    const customers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-    const first_4 = customers.slice(0, 4);
-    expect(first_4).toStrictEqual([1, 2, 3, 4]);
-    const next_4 = customers.slice(4, 8);
-    expect(next_4).toStrictEqual([5, 6, 7, 8]);
-
-    const rest = customers.slice(8, 12);
-    expect(rest).toStrictEqual([9]);
   });
 });

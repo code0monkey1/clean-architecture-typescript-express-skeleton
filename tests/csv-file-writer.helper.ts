@@ -50,3 +50,12 @@ export const assertCustomersHaveBeenWritten = (
     assertCustomerHasBeenWritten(fileWriter, fileName, customer);
   });
 };
+
+export const createCustomers = (count: number) => {
+  const customers: Customer[] = [];
+  for (let i = 1; i <= count; i++) {
+    customers.push(new Customer(i + '', i + ''));
+  }
+
+  return customers;
+};
