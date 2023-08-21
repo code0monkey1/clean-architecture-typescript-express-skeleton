@@ -86,7 +86,7 @@ describe('csv-file-writer', () => {
 });
 
 describe('batched customers', () => {
-  it.only('creates only 1 file, when customers are 12', () => {
+  it('creates only 1 file, when customers are 12', () => {
     const customers = [
       getCustomer('0', '123'),
       getCustomer('1', '123'),
@@ -115,8 +115,11 @@ describe('batched customers', () => {
     const sut = getCsvFileWriter(fileWriter);
 
     sut.writeBatchedCustomers(fileName, customers, 12);
-    console.log(customers.toString());
-    expect(fileWriter.writeLine).toHaveBeenCalledWith('myfile0.csv', '11,123');
+
+    expect(fileWriter.writeLine).toHaveBeenCalledWith(
+      'myfile0.csv',
+      getCustomer('11', '123').toString()
+    );
 
     assertCustomersHaveBeenWritten(
       fileWriter,
