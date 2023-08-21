@@ -18,7 +18,7 @@ class Customer {
   }
 
   public toString() {
-    return `${this.name},${this.contactNumber}`;
+    return `${this._name},${this._contactNumber}`;
   }
 }
 
