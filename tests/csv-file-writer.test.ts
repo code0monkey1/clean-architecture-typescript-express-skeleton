@@ -107,8 +107,6 @@ describe('batched customers', () => {
       getCustomer('10', '123'),
 
       getCustomer('11', '123'),
-
-      getCustomer('12', '123'),
     ];
     const fileName = 'myfile.csv';
 
@@ -122,6 +120,11 @@ describe('batched customers', () => {
       fileWriter,
       'myfile0.csv',
       customers.slice(0, 12)
+    );
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'myfile1.csv',
+      customers.slice(12)
     );
   });
   it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
