@@ -84,3 +84,46 @@ describe('csv-file-writer', () => {
     expect(fileWriter.getLines().length).toBe(customers.length);
   });
 });
+
+describe('batched customers', () => {
+  it('batches customers in 12`s', () => {
+    //arrange
+
+    const customers = [
+      getCustomer('diljig', '123'),
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+
+      getCustomer('diljig', '123'),
+    ];
+
+    const fileName = 'myfile.csv';
+
+    const fileWriter = getFileWriter();
+
+    const sut = getCsvFileWriter(fileWriter);
+
+    sut.writeBatchedCustomers(fileName, customers, 12);
+  });
+});
