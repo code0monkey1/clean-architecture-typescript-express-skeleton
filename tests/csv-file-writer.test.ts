@@ -118,7 +118,7 @@ describe('batched customers', () => {
 
     expect(fileWriter.writeLine).toHaveBeenCalledWith(
       'myfile0.csv',
-      customerToString(customers[12])
+      customers[12].toString()
     );
 
     assertCustomersHaveBeenWritten(

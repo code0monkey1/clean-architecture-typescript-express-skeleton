@@ -17,8 +17,8 @@ class Customer {
     this._contactNumber = value;
   }
 
-  toString() {
-    console.log(`${this.name},${this.contactNumber}`);
+  public toString() {
+    return `${this.name},${this.contactNumber}`;
   }
 }
 
