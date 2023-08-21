@@ -25,7 +25,7 @@ export const getCustomer = (name: string, contactNumber: string): Customer => {
   return new Customer(name, contactNumber);
 };
 
-export const getCsvFileWriter = (
+export const getCustomerFileWriter = (
   fileWriter: FileWriter
 ): CustomerFileWriter => {
   return new CustomerFileWriter(fileWriter);

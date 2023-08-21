@@ -2,10 +2,11 @@ import {
   assertCustomersHaveBeenWritten,
   createCustomers,
   customerToString,
-  getCsvFileWriter,
   getCustomer,
+  getCustomerFileWriter,
   getFileWriter,
 } from './csv-file-writer.helper';
+import { BatchedCustomerFileWriter } from './customer-file-writer';
 
 describe('csv-file-writer', () => {
   //'given : no customer object'
@@ -17,7 +18,7 @@ describe('csv-file-writer', () => {
     const fileWriter = getFileWriter();
 
     //act
-    const sut = getCsvFileWriter(fileWriter);
+    const sut = getCustomerFileWriter(fileWriter);
 
     sut.writeCustomers('myfile.pdf', []);
 
@@ -35,7 +36,7 @@ describe('csv-file-writer', () => {
     const fileName = 'myfile.pdf';
 
     //act
-    const sut = getCsvFileWriter(fileWriter);
+    const sut = getCustomerFileWriter(fileWriter);
     sut.writeCustomers(fileName, [customer]);
 
     //assert
@@ -66,7 +67,7 @@ describe('csv-file-writer', () => {
     const fileName = 'narnia.ts';
 
     //act
-    const sut = getCsvFileWriter(fileWriter);
+    const sut = getCustomerFileWriter(fileWriter);
 
     sut.writeCustomers(fileName, customers);
 
@@ -85,7 +86,7 @@ describe('batched customers', () => {
 
     const fileWriter = getFileWriter();
 
-    const sut = getCsvFileWriter(fileWriter);
+    const sut = getCustomerFileWriter(fileWriter);
 
     sut.writeBatchedCustomers(fileName, customers, 12);
 
@@ -109,9 +110,11 @@ describe('batched customers', () => {
 
     const fileWriter = getFileWriter();
 
-    const sut = getCsvFileWriter(fileWriter);
+    const sut = getCustomerFileWriter(fileWriter);
 
-    sut.writeBatchedCustomers(fileName, customers, 12);
+    const bfr = new BatchedCustomerFileWriter(sut);
+
+    bfr.writeBatchedCustomers(fileName, customers, 12);
 
     assertCustomersHaveBeenWritten(
       fileWriter,
