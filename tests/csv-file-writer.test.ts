@@ -90,32 +90,32 @@ describe('batched customers', () => {
     //arrange
 
     const customers = [
-      getCustomer('diljig', '123'),
-      getCustomer('diljig', '123'),
+      getCustomer('0', '123'),
+      getCustomer('1', '123'),
 
-      getCustomer('diljig', '123'),
+      getCustomer('2', '123'),
 
-      getCustomer('diljig', '123'),
-      getCustomer('diljig', '123'),
+      getCustomer('3', '123'),
+      getCustomer('4', '123'),
 
-      getCustomer('diljig', '123'),
+      getCustomer('5', '123'),
 
-      getCustomer('diljig', '123'),
-      getCustomer('diljig', '123'),
+      getCustomer('6', '123'),
+      getCustomer('7', '123'),
 
-      getCustomer('diljig', '123'),
+      getCustomer('8', '123'),
 
-      getCustomer('diljig', '123'),
-      getCustomer('diljig', '123'),
+      getCustomer('9', '123'),
+      getCustomer('10', '123'),
 
-      getCustomer('diljig', '123'),
+      getCustomer('11', '123'),
 
-      getCustomer('diljig', '123'),
-      getCustomer('diljig', '123'),
+      getCustomer('12', '123'),
+      getCustomer('13', '123'),
 
-      getCustomer('diljig', '123'),
+      getCustomer('14', '123'),
 
-      getCustomer('diljig', '123'),
+      getCustomer('15', '123'),
     ];
 
     const fileName = 'myfile.csv';
@@ -126,8 +126,16 @@ describe('batched customers', () => {
 
     sut.writeBatchedCustomers(fileName, customers, 12);
 
-    assertCustomersHaveBeenWritten(fileWriter, 'myfile0.csv', customers);
-    assertCustomersHaveBeenWritten(fileWriter, 'myfile1.csv', customers);
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'myfile0.csv',
+      customers.slice(0, 12)
+    );
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'myfile1.csv',
+      customers.slice(12)
+    );
   });
 });
 

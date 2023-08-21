@@ -17,6 +17,7 @@ class CsvFileWriter {
     batchSize: number
   ) {
     let fileIndex = 0;
+
     for (let i = 0; i < customers.length; i += batchSize) {
       const customersToWrite = customers.slice(i, i + batchSize);
 
