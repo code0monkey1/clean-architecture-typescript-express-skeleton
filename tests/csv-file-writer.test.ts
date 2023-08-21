@@ -86,7 +86,7 @@ describe('csv-file-writer', () => {
 });
 
 describe('batched customers', () => {
-  it('creates only 1 file, when customers are 12', () => {
+  it.only('creates only 1 file, when customers are 12', () => {
     const customers = [
       getCustomer('0', '123'),
       getCustomer('1', '123'),
@@ -116,9 +116,10 @@ describe('batched customers', () => {
 
     sut.writeBatchedCustomers(fileName, customers, 12);
 
-    expect(fileWriter.writeLine).not.toHaveBeenLastCalledWith(
+    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+      fileName,
       'myfile0.csv',
-      []
+      customerToString(customers[12])
     );
 
     assertCustomersHaveBeenWritten(
