@@ -132,7 +132,7 @@ describe.only('functional testings', () => {
   it('will splice till drop', () => {
     const customers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-    const first_9 = customers.splice(4);
+    const first_9 = customers.splice(0, 4);
     expect(first_9).toStrictEqual([1, 2, 3, 4]);
   });
 });
