@@ -116,9 +116,9 @@ describe('batched customers', () => {
 
     sut.writeBatchedCustomers(fileName, customers, 12);
 
-    expect(fileWriter.writeLine).toHaveBeenCalledWith(
+    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
       'myfile0.csv',
-      getCustomer('11', '123').toString()
+      getCustomer('10', '123').toString()
     );
 
     assertCustomersHaveBeenWritten(
