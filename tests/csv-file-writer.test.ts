@@ -86,7 +86,45 @@ describe('csv-file-writer', () => {
 });
 
 describe('batched customers', () => {
-  it('batches customers in 12`s', () => {
+  it('creates only 1 file, when customers are 12', () => {
+    const customers = [
+      getCustomer('0', '123'),
+      getCustomer('1', '123'),
+
+      getCustomer('2', '123'),
+
+      getCustomer('3', '123'),
+      getCustomer('4', '123'),
+
+      getCustomer('5', '123'),
+
+      getCustomer('6', '123'),
+      getCustomer('7', '123'),
+
+      getCustomer('8', '123'),
+
+      getCustomer('9', '123'),
+      getCustomer('10', '123'),
+
+      getCustomer('11', '123'),
+
+      getCustomer('12', '123'),
+    ];
+    const fileName = 'myfile.csv';
+
+    const fileWriter = getFileWriter();
+
+    const sut = getCsvFileWriter(fileWriter);
+
+    sut.writeBatchedCustomers(fileName, customers, 12);
+
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'myfile0.csv',
+      customers.slice(0, 12)
+    );
+  });
+  it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
     //arrange
 
     const customers = [
