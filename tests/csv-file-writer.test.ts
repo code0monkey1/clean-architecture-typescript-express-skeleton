@@ -55,18 +55,10 @@ describe('csv-file-writer', () => {
 
   it.each([
     {
-      customers: [
-        getCustomer('a', '123'),
-        getCustomer('b', '456'),
-        getCustomer('c', '789'),
-      ],
+      customers: createCustomers(3),
     },
     {
-      customers: [
-        getCustomer('d', '874'),
-        getCustomer('e', '764'),
-        getCustomer('f', '796'),
-      ],
+      customers: createCustomers(12),
     },
   ])('given : multiple customers are present', ({ customers }) => {
     //arrange
