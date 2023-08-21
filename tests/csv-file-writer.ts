@@ -16,12 +16,23 @@ class CsvFileWriter {
     customers: Customer[],
     batchSize: number
   ) {
-    while (customers.length) {
-      const customersToWrite = customers.splice(batchSize);
+    for (let i = 0; i < customers.length; i += batchSize) {
+      const customersToWrite = customers.slice(i, i + batchSize);
 
-      this.writeCustomers(fileName, customersToWrite);
+      const [name, ext] = name_ext(fileName);
+
+      const indexed_fileName = name + i + ext;
+
+      this.writeCustomers(indexed_fileName, customersToWrite);
     }
   }
 }
 
 export default CsvFileWriter;
+
+const name_ext = (file: string) => {
+  const name = file.slice(0, file.lastIndexOf('.'));
+  const ext = file.slice(file.lastIndexOf('.'));
+
+  return [name, ext];
+};
