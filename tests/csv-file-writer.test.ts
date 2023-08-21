@@ -181,7 +181,7 @@ describe('batched customers', () => {
 });
 
 describe('functional testings', () => {
-  it('will splice till drop', () => {
+  it('will splice as expected', () => {
     const customers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
     const first_4 = customers.slice(0, 4);
