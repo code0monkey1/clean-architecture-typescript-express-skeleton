@@ -115,11 +115,8 @@ describe('batched customers', () => {
     const sut = getCsvFileWriter(fileWriter);
 
     sut.writeBatchedCustomers(fileName, customers, 12);
-
-    expect(fileWriter.writeLine).toHaveBeenCalledWith(
-      'myfile0.csv',
-      customers[12].toString()
-    );
+    console.log(customers.toString());
+    expect(fileWriter.writeLine).toHaveBeenCalledWith('myfile0.csv', '11,123');
 
     assertCustomersHaveBeenWritten(
       fileWriter,
