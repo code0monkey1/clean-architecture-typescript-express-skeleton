@@ -86,7 +86,7 @@ describe('csv-file-writer', () => {
 });
 
 describe('batched customers', () => {
-  it('creates only 1 file, when customers are 12', () => {
+  it('creates only 1 file, when customers are 12 ', () => {
     const customers = [
       getCustomer('0', '123'),
       getCustomer('1', '123'),
