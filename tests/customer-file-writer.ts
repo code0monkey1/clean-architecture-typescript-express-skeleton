@@ -1,4 +1,5 @@
 import Customer from './customer';
+import { customerToString } from './customer-file-writer.helper';
 import FileWriter from './file-writer';
 export class BatchedCustomerFileWriter {
   constructor(private readonly customerFileWriter: CustomerFileWriter) {}
@@ -85,20 +86,18 @@ export class CustomerFileWriter {
 }
 
 export class UniqueCustomerFileWriter {
-  constructor(private readonly fileWriter: FileWriter) {}
+  constructor(private readonly customerFileWriter: CustomerFileWriter) {}
 
   writeCustomers(fileName: string, customers: Customer[]) {
-    const uniqueCustomers: Set<string> = new Set();
-
+    const uniqueNames: Set<string> = new Set();
+    const uniqueCustomers: Customer[] = [];
     customers.forEach((c) => {
-      if (!uniqueCustomers.has(c.name)) {
-        this.fileWriter.writeLine(fileName, this.customerToString(c));
-        uniqueCustomers.add(c.name);
+      if (!uniqueNames.has(c.name)) {
+        uniqueNames.add(customerToString(c));
+        uniqueCustomers.push(c);
       }
     });
-  }
 
-  private customerToString = (customer: Customer) => {
-    return `${customer.name},${customer.contactNumber}`;
-  };
+    this.customerFileWriter.writeCustomers(fileName, uniqueCustomers);
+  }
 }
