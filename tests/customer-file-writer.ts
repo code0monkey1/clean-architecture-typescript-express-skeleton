@@ -62,7 +62,7 @@ export class CustomerFileWriter {
       const [name, ext] = this.name_ext(fileName);
 
       const indexed_fileName = name + fileIndex + ext;
-
+      console.log('indexed_fileName', indexed_fileName);
       fileIndex++;
 
       this.writeCustomers(indexed_fileName, customersToWrite);
