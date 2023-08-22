@@ -39,6 +39,13 @@ export class BatchedCustomerFileWriter {
     return [name, ext];
   };
 }
+
+
+interface ICustomerFileWriter{
+  
+
+  writeCustomers(fineName:string:customers:Customers[])
+}
 export class CustomerFileWriter {
   constructor(private readonly fileWriter: FileWriter) {}
 
