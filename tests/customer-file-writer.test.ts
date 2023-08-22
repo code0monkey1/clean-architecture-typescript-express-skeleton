@@ -176,6 +176,7 @@ describe('batched customers', () => {
     //   fileName + '0',
     //   getCustomer('4', '4')
     // );
-    assertCustomersHaveBeenWritten(fileWriter, 'file0', cust.slice(5));
+    assertCustomersHaveBeenWritten(fileWriter, 'file0', cust.slice(0, 5));
+    assertCustomersHaveBeenWritten(fileWriter, 'file1', cust.slice(5));
   });
 });
