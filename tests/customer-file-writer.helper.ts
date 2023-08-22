@@ -55,8 +55,9 @@ export const assertCustomersHaveBeenWritten = (
 
 export const createCustomers = (count: number) => {
   const customers: Customer[] = [];
+
   for (let i = 1; i <= count; i++) {
-    customers.push(new Customer(i + '', i + ''));
+    customers.push(getCustomer(i + '', i + ''));
   }
 
   return customers;
