@@ -102,7 +102,7 @@ describe('batched customers', () => {
       customers.slice(0, 12)
     );
   });
-  it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
+  it.only('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
     //arrange
 
     const customers = createCustomers(15);
