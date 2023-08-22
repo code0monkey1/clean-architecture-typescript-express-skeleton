@@ -113,9 +113,9 @@ describe('batched customers', () => {
 
     const sut = getCustomerFileWriter(fileWriter);
 
-    const bfr = new BatchedCustomerFileWriter(sut);
+    // const bfr = new BatchedCustomerFileWriter(sut);
 
-    bfr.writeBatchedCustomers(fileName, customers, 12);
+    sut.writeBatchedCustomers(fileName, customers, 12);
 
     assertCustomersHaveBeenWritten(
       fileWriter,
