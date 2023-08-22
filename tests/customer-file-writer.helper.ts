@@ -1,5 +1,6 @@
 import {
   CustomerFileWriter,
+  ICustomerFileWriter,
   UniqueCustomerFileWriter,
 } from './customer-file-writer';
 
@@ -35,7 +36,7 @@ export const getCustomerFileWriter = (
 };
 
 export const getUniqueCustomerFileWriter = (
-  customerFileWriter: CustomerFileWriter
+  customerFileWriter: ICustomerFileWriter
 ): UniqueCustomerFileWriter => {
   return new UniqueCustomerFileWriter(customerFileWriter);
 };

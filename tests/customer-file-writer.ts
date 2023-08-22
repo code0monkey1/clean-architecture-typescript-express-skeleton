@@ -3,7 +3,7 @@ import FileWriter from './file-writer';
 
 export class BatchedCustomerFileWriter implements ICustomerFileWriter {
   constructor(
-    private readonly customerFileWriter: UniqueCustomerFileWriter,
+    private readonly customerFileWriter: ICustomerFileWriter,
     private readonly batchSize: number
   ) {}
 
@@ -41,7 +41,7 @@ export class BatchedCustomerFileWriter implements ICustomerFileWriter {
   };
 }
 
-interface ICustomerFileWriter {
+export interface ICustomerFileWriter {
   writeCustomers(fineName: string, customers: Customer[]): void;
 }
 export class CustomerFileWriter implements ICustomerFileWriter {
@@ -59,7 +59,7 @@ export class CustomerFileWriter implements ICustomerFileWriter {
 }
 
 export class UniqueCustomerFileWriter implements ICustomerFileWriter {
-  constructor(private readonly customerFileWriter: CustomerFileWriter) {}
+  constructor(private readonly customerFileWriter: ICustomerFileWriter) {}
 
   writeCustomers(fileName: string, customers: Customer[]) {
     const uniqueNames: Set<string> = new Set();

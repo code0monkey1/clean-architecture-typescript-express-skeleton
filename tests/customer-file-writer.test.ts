@@ -2,7 +2,6 @@ import Customer from './customer';
 import {
   BatchedCustomerFileWriter,
   CustomerFileWriter,
-  UniqueCustomerFileWriter,
 } from './customer-file-writer';
 import {
   // assertCustomersHaveBeenWritten,
@@ -203,13 +202,12 @@ describe.only('Duplicate customers are removed', () => {
     const customerFileWriter: CustomerFileWriter =
       getCustomerFileWriter(fileWriter);
 
-    const uniqueFileWriter: UniqueCustomerFileWriter =
-      getUniqueCustomerFileWriter(customerFileWriter);
-
-    const sut: BatchedCustomerFileWriter = new BatchedCustomerFileWriter(
-      uniqueFileWriter,
+    const bcw: BatchedCustomerFileWriter = new BatchedCustomerFileWriter(
+      customerFileWriter,
       10
     );
+
+    const sut = getUniqueCustomerFileWriter(bcw);
 
     sut.writeCustomers(fileName, customers);
 
