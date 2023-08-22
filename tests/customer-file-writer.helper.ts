@@ -1,4 +1,5 @@
 import {
+  BatchedCustomerFileWriter,
   CustomerFileWriter,
   ICustomerFileWriter,
   UniqueCustomerFileWriter,
@@ -31,13 +32,20 @@ export const getCustomer = (name: string, contactNumber: string): Customer => {
 
 export const getCustomerFileWriter = (
   fileWriter: FileWriter
-): CustomerFileWriter => {
+): ICustomerFileWriter => {
   return new CustomerFileWriter(fileWriter);
+};
+
+export const getBatchedCustomerWriter = (
+  customerWriter: ICustomerFileWriter,
+  batchSize: number
+): ICustomerFileWriter => {
+  return new BatchedCustomerFileWriter(customerWriter, batchSize);
 };
 
 export const getUniqueCustomerFileWriter = (
   customerFileWriter: ICustomerFileWriter
-): UniqueCustomerFileWriter => {
+): ICustomerFileWriter => {
   return new UniqueCustomerFileWriter(customerFileWriter);
 };
 
