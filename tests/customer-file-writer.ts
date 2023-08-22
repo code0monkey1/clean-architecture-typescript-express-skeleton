@@ -65,6 +65,7 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
     const uniqueNames: Set<string> = new Set();
     const uniqueCustomers: Customer[] = [];
     customers.forEach((c) => {
+      console.log('name is', c.name);
       if (!uniqueNames.has(c.name)) {
         uniqueNames.add(this.customerToString(c));
         uniqueCustomers.push(c);
