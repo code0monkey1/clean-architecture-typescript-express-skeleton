@@ -26,7 +26,7 @@ export class BatchedCustomerFileWriter {
     }
   }
 
-  private name_ext = (file: string) => {
+  private name_ext = (file: string): [name: string, extension: string] => {
     const extn_index = file.lastIndexOf('.');
 
     // in case the file has no extension
