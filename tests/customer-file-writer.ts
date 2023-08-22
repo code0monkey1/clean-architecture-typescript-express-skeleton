@@ -83,3 +83,22 @@ export class CustomerFileWriter {
     return `${customer.name},${customer.contactNumber}`;
   };
 }
+
+export class UniqueCustomerFileWriter {
+  constructor(private readonly fileWriter: FileWriter) {}
+
+  writeCustomers(fileName: string, customers: Customer[]) {
+    const uniqueCustomers: Set<string> = new Set();
+
+    customers.forEach((c) => {
+      if (!uniqueCustomers.has(c.name)) {
+        this.fileWriter.writeLine(fileName, this.customerToString(c));
+        uniqueCustomers.add(c.name);
+      }
+    });
+  }
+
+  private customerToString = (customer: Customer) => {
+    return `${customer.name},${customer.contactNumber}`;
+  };
+}
