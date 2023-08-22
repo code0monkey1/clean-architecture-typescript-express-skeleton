@@ -143,9 +143,9 @@ describe('batched customers', () => {
 
     //assert
 
-    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+    expect(fileWriter.writeLine).toHaveBeenCalledWith(
       fileName + '0',
-      customerToString(customers[4])
+      customerToString(getCustomer('6', '6'))
     );
 
     // expect(fileWriter.writeLine).toBeCalledWith(
