@@ -1,17 +1,16 @@
 import Customer from './customer';
 import FileWriter from './file-writer';
 export class BatchedCustomerFileWriter {
-  constructor(private readonly customerFileWriter: CustomerFileWriter) {}
+  constructor(
+    private readonly customerFileWriter: UniqueCustomerFileWriter,
+    private readonly batchSize: number
+  ) {}
 
-  writeBatchedCustomers(
-    fileName: string,
-    customers: Customer[],
-    batchSize: number
-  ) {
+  writeCustomers(fileName: string, customers: Customer[]) {
     let fileIndex = 0;
 
-    for (let i = 0; i < customers.length; i += batchSize) {
-      const customersToWrite = customers.slice(i, i + batchSize);
+    for (let i = 0; i < customers.length; i += this.batchSize) {
+      const customersToWrite = customers.slice(i, i + this.batchSize);
 
       const [name, ext] = this.name_ext(fileName);
 

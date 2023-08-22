@@ -1,4 +1,7 @@
-import { CustomerFileWriter } from './customer-file-writer';
+import {
+  CustomerFileWriter,
+  UniqueCustomerFileWriter,
+} from './customer-file-writer';
 
 import Customer from './customer';
 import FileWriter from './file-writer';
@@ -29,6 +32,12 @@ export const getCustomerFileWriter = (
   fileWriter: FileWriter
 ): CustomerFileWriter => {
   return new CustomerFileWriter(fileWriter);
+};
+
+export const getUniqueCustomerFileWriter = (
+  customerFileWriter: CustomerFileWriter
+): UniqueCustomerFileWriter => {
+  return new UniqueCustomerFileWriter(customerFileWriter);
 };
 
 export const assertCustomerHasBeenWritten = (
