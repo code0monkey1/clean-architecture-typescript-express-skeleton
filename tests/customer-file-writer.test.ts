@@ -143,14 +143,10 @@ describe('batched customers', () => {
 
     //assert
 
-    customers
-      .slice(0, 5)
-      .map((customer) =>
-        expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
-          fileName + '0',
-          customerToString(customer)
-        )
-      );
+    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+      fileName + '0',
+      customerToString(customers[4])
+    );
 
     // expect(fileWriter.writeLine).toBeCalledWith(
     //   fileName + '0',
