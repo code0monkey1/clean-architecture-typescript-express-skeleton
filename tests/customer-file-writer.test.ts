@@ -163,15 +163,15 @@ describe('Batch processing 15,000 files at once', () => {
     //assert
 
     const sut = new BatchedCustomerFileWriter(customerFileWriter);
-    sut.writeBatchedCustomers(fileName, customers, 1000);
+    sut.writeBatchedCustomers(fileName, customers, 100);
 
     let fileIndex = 0;
 
-    for (let i = 0; i < 30000; i += 1000) {
+    for (let i = 0; i < 30000; i += 100) {
       assertCustomersHaveBeenWritten(
         fileWriter,
         'file' + fileIndex,
-        customers.slice(i, i + 1000)
+        customers.slice(i, i + 100)
       );
       fileIndex++;
     }
