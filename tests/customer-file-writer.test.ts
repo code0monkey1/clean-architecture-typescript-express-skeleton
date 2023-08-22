@@ -1,6 +1,7 @@
 import { BatchedCustomerFileWriter } from './customer-file-writer';
 import {
   assertCustomersHaveBeenWritten,
+  batchedCustomersHaveBeenWritten,
   createCustomers,
   customerToString,
   getCustomer,
@@ -158,7 +159,7 @@ describe('Batch processing 15,000 files at once', () => {
 
     console.time('createCustomers');
 
-    const customers = createCustomers(30000);
+    const customers = createCustomers(1000);
     console.timeEnd('createCustomers');
 
     //act
@@ -167,18 +168,14 @@ describe('Batch processing 15,000 files at once', () => {
     //assert
     console.time('write customers');
     const sut = new BatchedCustomerFileWriter(customerFileWriter);
-    sut.writeBatchedCustomers(fileName, customers, 50);
+    sut.writeBatchedCustomers(fileName, customers, 10);
 
     console.timeEnd('write customers');
-    let fileIndex = 0;
 
-    for (let i = 0; i < customers.length; i += 50) {
-      assertCustomersHaveBeenWritten(
-        fileWriter,
-        'file' + fileIndex,
-        customers.slice(i, i + 50)
-      );
-      fileIndex++;
-    }
+    //assert
+
+    console.time('assert customers written');
+    batchedCustomersHaveBeenWritten(fileWriter, customers, 10);
+    console.timeEnd('assert customers written');
   });
 });

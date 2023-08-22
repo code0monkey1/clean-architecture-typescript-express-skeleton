@@ -62,3 +62,20 @@ export const createCustomers = (count: number) => {
 
   return customers;
 };
+
+export const batchedCustomersHaveBeenWritten = (
+  fileWriter: FileWriter,
+  customers: Customer[],
+  batchSize: number
+) => {
+  let fileIndex = 0;
+
+  for (let i = 0; i < customers.length; i += batchSize) {
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'file' + fileIndex,
+      customers.slice(i, i + batchSize)
+    );
+    fileIndex++;
+  }
+};
