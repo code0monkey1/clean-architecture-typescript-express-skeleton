@@ -190,7 +190,6 @@ describe.only('Duplicate customers are removed', () => {
 
     const customers: Customer[] = [
       ...createCustomers(3),
-
       ...createCustomers(2),
     ];
 
@@ -200,12 +199,12 @@ describe.only('Duplicate customers are removed', () => {
 
     const bcw = getBatchedCustomerWriter(cfw, 10);
 
-    const sut = getUniqueCustomerFileWriter(bcw); // last comes first
+    const sut = getUniqueCustomerFileWriter(bcw); // last  gets called first
 
     sut.writeCustomers(fileName, customers);
 
     //assert
 
-    expect(fileWriter.writeLine).toBeCalledTimes(2);
+    expect(fileWriter.writeLine).toBeCalledTimes(3);
   });
 });
