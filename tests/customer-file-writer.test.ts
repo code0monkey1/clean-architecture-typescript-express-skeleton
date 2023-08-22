@@ -1,6 +1,5 @@
 import { BatchedCustomerFileWriter } from './customer-file-writer';
 import {
-  assertCustomerHasBeenWritten,
   assertCustomersHaveBeenWritten,
   createCustomers,
   customerToString,
@@ -159,15 +158,24 @@ describe('batched customers', () => {
       getCustomer('10', '10'),
     ];
 
-    cust.forEach((c) => {
-      expect(fileWriter.writeLine).toHaveBeenCalledWith('file0', c);
+    cust.slice(0, 5).forEach((c) => {
+      expect(fileWriter.writeLine).toHaveBeenCalledWith(
+        'file0',
+        customerToString(c)
+      );
+    });
+    cust.slice(5).forEach((c) => {
+      expect(fileWriter.writeLine).toHaveBeenCalledWith(
+        'file1',
+        customerToString(c)
+      );
     });
 
-    assertCustomerHasBeenWritten(
-      fileWriter,
-      fileName + '0',
-      getCustomer('4', '4')
-    );
-    // assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(10));
+    // assertCustomerHasBeenWritten(
+    //   fileWriter,
+    //   fileName + '0',
+    //   getCustomer('4', '4')
+    // );
+    assertCustomersHaveBeenWritten(fileWriter, 'file0', cust.slice(5));
   });
 });
