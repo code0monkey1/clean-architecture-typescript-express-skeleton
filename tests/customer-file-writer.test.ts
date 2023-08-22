@@ -117,6 +117,7 @@ describe('batched customers', () => {
 
     bfr.writeBatchedCustomers(fileName, customers, 12);
 
+    expect(false).toBe(true);
     assertCustomersHaveBeenWritten(
       fileWriter,
       'myfile0.csv',
@@ -124,7 +125,7 @@ describe('batched customers', () => {
     );
     assertCustomersHaveBeenWritten(
       fileWriter,
-      'myfile1.csv',
+      'myfile2.csv',
       customers.slice(12)
     );
   });
@@ -142,6 +143,5 @@ describe('batched customers', () => {
     bfr.writeBatchedCustomers(fileName, customers, 10);
 
     //assert
-    expect(fileWriter);
   });
 });
