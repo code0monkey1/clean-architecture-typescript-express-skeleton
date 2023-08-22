@@ -71,6 +71,7 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
       }
     });
 
+    console.log('unique customers', uniqueCustomers);
     this.customerFileWriter.writeCustomers(fileName, uniqueCustomers);
   }
 
