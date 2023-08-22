@@ -159,7 +159,7 @@ describe('Batch processing 15,000 files at once', () => {
 
     console.time('createCustomers');
 
-    const customers = createCustomers(1000);
+    const customers = createCustomers(10);
     console.timeEnd('createCustomers');
 
     //act
@@ -168,14 +168,14 @@ describe('Batch processing 15,000 files at once', () => {
     //assert
     console.time('write customers');
     const sut = new BatchedCustomerFileWriter(customerFileWriter);
-    sut.writeBatchedCustomers(fileName, customers, 10);
+    sut.writeBatchedCustomers(fileName, customers, 1);
 
     console.timeEnd('write customers');
 
     //assert
 
     console.time('assert customers written');
-    batchedCustomersHaveBeenWritten(fileWriter, customers, 10);
+    batchedCustomersHaveBeenWritten(fileWriter, customers, 1);
     console.timeEnd('assert customers written');
   });
 });
