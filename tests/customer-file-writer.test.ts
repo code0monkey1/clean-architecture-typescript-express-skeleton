@@ -151,5 +151,25 @@ describe('batched customers', () => {
 });
 
 describe('Batch processing 15,000 files at once', () => {
-  it('produces 2 files when the customers are 30,000', () => {});
+  it.only('produces 2 files when the customers are 30,000', () => {
+    //arrange
+    const fileName = 'file';
+    const fileWriter = getFileWriter();
+    const customers = createCustomers(30000);
+
+    //act
+    const customerFileWriter = getCustomerFileWriter(fileWriter);
+
+    //assert
+
+    const sut = new BatchedCustomerFileWriter(customerFileWriter);
+    sut.writeBatchedCustomers(fileName, customers, 15000);
+
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'file0',
+      customers.slice(0, 15000)
+    );
+    assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(15000));
+  });
 });
