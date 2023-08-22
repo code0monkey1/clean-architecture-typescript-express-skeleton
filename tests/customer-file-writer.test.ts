@@ -1,3 +1,4 @@
+import { BatchedCustomerFileWriter } from './customer-file-writer';
 import {
   assertCustomersHaveBeenWritten,
   createCustomers,
@@ -5,15 +6,14 @@ import {
   getCustomer,
   getCustomerFileWriter,
   getFileWriter,
-} from './csv-file-writer.helper';
-import { BatchedCustomerFileWriter } from './customer-file-writer';
+} from './customer-file-writer.helper';
 
-describe('csv-file-writer', () => {
+describe('customer file writer', () => {
   //'given : no customer object'
   //'when : we try to write the line to file
   //`then : writeLine function is not called
 
-  it('given : no customer object', () => {
+  it('no customer object will result in writeLine not being called', () => {
     //arrange
     const fileWriter = getFileWriter();
     const fileName = 'myfile.pdf';
@@ -127,5 +127,21 @@ describe('batched customers', () => {
       'myfile1.csv',
       customers.slice(12)
     );
+  });
+
+  it('given file with no extension, the numbering will still be chronological', () => {
+    //arrange
+    const fileName = 'file';
+    const fileWriter = getFileWriter();
+    const customers = createCustomers(10);
+    //act
+    const sut = getCustomerFileWriter(fileWriter);
+
+    const bfr = new BatchedCustomerFileWriter(sut);
+
+    bfr.writeBatchedCustomers(fileName, customers, 10);
+
+    //assert
+    expect(fileWriter);
   });
 });
