@@ -16,11 +16,12 @@ describe('csv-file-writer', () => {
   it('given : no customer object', () => {
     //arrange
     const fileWriter = getFileWriter();
+    const fileName = 'myfile.pdf';
 
     //act
     const sut = getCustomerFileWriter(fileWriter);
 
-    sut.writeCustomers('myfile.pdf', []);
+    sut.writeCustomers(fileName, []);
 
     //assert
     expect(fileWriter.writeLine).toBeCalledTimes(0);
