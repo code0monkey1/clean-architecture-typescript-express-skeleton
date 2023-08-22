@@ -17,13 +17,8 @@ export class BatchedCustomerFileWriter {
 
       const indexed_fileName = name + fileIndex + ext;
 
-      fileIndex++;
-      console.log(
-        'indexed filename',
-        indexed_fileName,
-        'customersToWrite',
-        customersToWrite
-      );
+      ++fileIndex;
+
       this.customerFileWriter.writeCustomers(
         indexed_fileName,
         customersToWrite
