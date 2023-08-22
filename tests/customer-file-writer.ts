@@ -2,7 +2,11 @@ import Customer from './customer';
 import { customerToString } from './customer-file-writer.helper';
 import FileWriter from './file-writer';
 export class BatchedCustomerFileWriter {
-  constructor(private readonly customerFileWriter: CustomerFileWriter) {}
+  constructor(
+    private readonly customerFileWriter:
+      | CustomerFileWriter
+      | UniqueCustomerFileWriter
+  ) {}
 
   writeBatchedCustomers(
     fileName: string,
