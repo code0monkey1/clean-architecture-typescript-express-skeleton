@@ -1,5 +1,6 @@
 import Customer from './customer';
 import FileWriter from './file-writer';
+
 export class BatchedCustomerFileWriter implements ICustomerFileWriter {
   constructor(
     private readonly customerFileWriter: UniqueCustomerFileWriter,
