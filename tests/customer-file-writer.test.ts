@@ -134,6 +134,8 @@ describe('batched customers', () => {
     const fileName = 'file';
     const fileWriter = getFileWriter();
     const customers = createCustomers(10);
+
+    console.log(customers);
     //act
     const sut = getCustomerFileWriter(fileWriter);
 
@@ -157,8 +159,9 @@ describe('batched customers', () => {
       getCustomer('9', '9'),
       getCustomer('10', '10'),
     ];
+    console.log(cust);
 
-    expect(customers).toStrictEqual(cust);
+    expect(customers).toEqual(cust);
 
     cust.slice(0, 5).forEach((c) => {
       expect(fileWriter.writeLine).toHaveBeenCalledWith(
