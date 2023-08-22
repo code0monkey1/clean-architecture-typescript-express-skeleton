@@ -137,25 +137,11 @@ describe('batched customers', () => {
     //act
     const sut = getCustomerFileWriter(fileWriter);
 
-    const bfr = new BatchedCustomerFileWriter(sut);
-
-    bfr.writeBatchedCustomers(fileName, customers, 10);
+    sut.writeBatchedCustomers(fileName, customers, 10);
 
     //assert
 
-    expect(fileWriter.writeLine).toHaveBeenCalledWith(
-      fileName + '0',
-      customerToString(getCustomer('6', '6'))
-    );
-
-    // expect(fileWriter.writeLine).toBeCalledWith(
-    //   fileName + '0',
-    //   customerToString(new Customer('4', '4'))
-    // );
-
-    // expect(fileWriter.writeLine).toBeCalledWith(
-    //   fileName + '1',
-    //   customerToString(new Customer('9', '9'))
-    // );
+    assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
+    assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(5));
   });
 });
