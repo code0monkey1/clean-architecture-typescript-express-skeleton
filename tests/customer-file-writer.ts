@@ -65,9 +65,8 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
     const uniqueNames: Set<string> = new Set();
     const uniqueCustomers: Customer[] = [];
     customers.forEach((c) => {
-      console.log('name is', c.name);
       if (!uniqueNames.has(c.name)) {
-        uniqueNames.add(this.customerToString(c));
+        uniqueNames.add(c.name);
         uniqueCustomers.push(c);
       }
     });
@@ -75,8 +74,4 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
     console.log('unique customers', uniqueCustomers);
     this.customerFileWriter.writeCustomers(fileName, uniqueCustomers);
   }
-
-  private customerToString = (customer: Customer) => {
-    return `${customer.name},${customer.contactNumber}`;
-  };
 }
