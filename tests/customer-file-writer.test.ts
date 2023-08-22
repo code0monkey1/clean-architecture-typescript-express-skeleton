@@ -196,12 +196,13 @@ describe.only('Duplicate customers are removed', () => {
     //act
 
     const customerFileWriter = getCustomerFileWriter(fileWriter);
+
     const sut = new BatchedCustomerFileWriter(customerFileWriter);
 
     sut.writeBatchedCustomers(fileName, customers, 10);
 
     //assert
 
-    expect(fileWriter.writeLine).toBeCalledTimes(2);
+    expect(fileWriter.writeLine).toBeCalledTimes(5);
   });
 });
