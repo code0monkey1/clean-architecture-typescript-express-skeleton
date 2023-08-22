@@ -1,6 +1,6 @@
 import Customer from './customer';
 import FileWriter from './file-writer';
-export class BatchedCustomerFileWriter {
+export class BatchedCustomerFileWriter implements ICustomerFileWriter {
   constructor(
     private readonly customerFileWriter: UniqueCustomerFileWriter,
     private readonly batchSize: number
@@ -40,13 +40,10 @@ export class BatchedCustomerFileWriter {
   };
 }
 
-
-interface ICustomerFileWriter{
-  
-
-  writeCustomers(fineName:string:customers:Customers[])
+interface ICustomerFileWriter {
+  writeCustomers(fineName: string, customers: Customer[]): void;
 }
-export class CustomerFileWriter {
+export class CustomerFileWriter implements ICustomerFileWriter {
   constructor(private readonly fileWriter: FileWriter) {}
 
   writeCustomers(fileName: string, customers: Customer[]) {
@@ -60,7 +57,7 @@ export class CustomerFileWriter {
   };
 }
 
-export class UniqueCustomerFileWriter {
+export class UniqueCustomerFileWriter implements ICustomerFileWriter {
   constructor(private readonly customerFileWriter: CustomerFileWriter) {}
 
   writeCustomers(fileName: string, customers: Customer[]) {
