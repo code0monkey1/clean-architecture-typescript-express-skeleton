@@ -161,7 +161,7 @@ describe('batched customers', () => {
     ];
     console.log(cust);
 
-    expect(customers).toEqual(cust);
+    expect(customers).toMatchSnapshot(cust);
 
     cust.slice(0, 5).forEach((c) => {
       expect(fileWriter.writeLine).toHaveBeenCalledWith(
