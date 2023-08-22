@@ -167,7 +167,7 @@ describe('Batch processing 15,000 files at once', () => {
     //assert
     console.time('write customers');
     const sut = new BatchedCustomerFileWriter(customerFileWriter);
-    sut.writeBatchedCustomers(fileName, customers, 500);
+    sut.writeBatchedCustomers(fileName, customers, 50);
 
     console.timeEnd('write customers');
     const fileIndex = 0;
@@ -175,7 +175,7 @@ describe('Batch processing 15,000 files at once', () => {
     assertCustomersHaveBeenWritten(
       fileWriter,
       'file' + fileIndex,
-      customers.slice(0, 500)
+      customers.slice(0, 50)
     );
 
     // assertCustomersHaveBeenWritten(
