@@ -59,6 +59,7 @@ export class CustomerFileWriter {
     for (let i = 0; i < customers.length; i += batchSize) {
       const customersToWrite = customers.slice(i, i + batchSize);
 
+      console.log('customers to writer', customersToWrite);
       const [name, ext] = this.name_ext(fileName);
 
       const indexed_fileName = name + fileIndex + ext;
