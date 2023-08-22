@@ -1,3 +1,4 @@
+import Customer from './customer';
 import { BatchedCustomerFileWriter } from './customer-file-writer';
 import {
   assertCustomersHaveBeenWritten,
@@ -177,5 +178,30 @@ describe('Batch processing 15,000 files at once', () => {
     console.time('assert customers written');
     batchedCustomersHaveBeenWritten(fileWriter, customers, 1);
     console.timeEnd('assert customers written');
+  });
+});
+
+describe.only('Duplicate customers are removed', () => {
+  it('writes only 2 unique customers , when 5 customers are given', () => {
+    //arrange
+    const fileName = 'file';
+    const fileWriter = getFileWriter();
+
+    const customers: Customer[] = [
+      ...createCustomers(3),
+
+      ...createCustomers(2),
+    ];
+
+    //act
+
+    const customerFileWriter = getCustomerFileWriter(fileWriter);
+    const sut = new BatchedCustomerFileWriter(customerFileWriter);
+
+    sut.writeBatchedCustomers(fileName, customers, 10);
+
+    //assert
+
+    expect(fileWriter.writeLine).toBeCalledTimes(2);
   });
 });
