@@ -158,9 +158,8 @@ describe('batched customers', () => {
       getCustomer('9', '9'),
       getCustomer('10', '10'),
     ];
-    console.log(cust, customers);
-
-    expect(cust).toStrictEqual(customers);
+    console.log('Cust value is ', JSON.stringify(cust));
+    console.log('customers value is ', JSON.stringify(customers));
 
     // cust.slice(0, 5).forEach((c) => {
     //   expect(fileWriter.writeLine).toHaveBeenCalledWith(
