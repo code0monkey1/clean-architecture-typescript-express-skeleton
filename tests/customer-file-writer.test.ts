@@ -155,16 +155,21 @@ describe('Batch processing 15,000 files at once', () => {
     //arrange
     const fileName = 'file';
     const fileWriter = getFileWriter();
+
+    console.time('createCustomers');
+
     const customers = createCustomers(30000);
+    console.timeEnd('createCustomers');
 
     //act
     const customerFileWriter = getCustomerFileWriter(fileWriter);
 
     //assert
-
+    console.time('write customers');
     const sut = new BatchedCustomerFileWriter(customerFileWriter);
     sut.writeBatchedCustomers(fileName, customers, 500);
 
+    console.timeEnd('write customers');
     const fileIndex = 0;
 
     assertCustomersHaveBeenWritten(
