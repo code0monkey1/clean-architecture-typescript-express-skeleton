@@ -1,3 +1,4 @@
+import Customer from './customer';
 import { BatchedCustomerFileWriter } from './customer-file-writer';
 import {
   assertCustomersHaveBeenWritten,
@@ -117,7 +118,6 @@ describe('batched customers', () => {
 
     bfr.writeBatchedCustomers(fileName, customers, 12);
 
-    expect(false).toBe(true);
     assertCustomersHaveBeenWritten(
       fileWriter,
       'myfile0.csv',
@@ -143,5 +143,14 @@ describe('batched customers', () => {
     bfr.writeBatchedCustomers(fileName, customers, 10);
 
     //assert
+    expect(fileWriter.writeLine).toBeCalledWith(
+      fileName + '0',
+      customerToString(new Customer('4', '4'))
+    );
+
+    expect(fileWriter.writeLine).toBeCalledWith(
+      fileName + '1',
+      customerToString(new Customer('9', '9'))
+    );
   });
 });
