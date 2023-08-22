@@ -149,3 +149,7 @@ describe('batched customers', () => {
     assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(5));
   });
 });
+
+describe('Batch processing 15,000 files at once', () => {
+  it('produces 2 files when the customers are 30,000', () => {});
+});
