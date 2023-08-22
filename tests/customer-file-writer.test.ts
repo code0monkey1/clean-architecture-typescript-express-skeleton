@@ -1,5 +1,6 @@
 import { BatchedCustomerFileWriter } from './customer-file-writer';
 import {
+  assertCustomerHasBeenWritten,
   assertCustomersHaveBeenWritten,
   createCustomers,
   customerToString,
@@ -147,6 +148,12 @@ describe('batched customers', () => {
     expect(fileWriter.writeLine).toBeCalledWith(
       'file0',
       customerToString(getCustomer('6', '6'))
+    );
+
+    assertCustomerHasBeenWritten(
+      fileWriter,
+      fileName + '0',
+      getCustomer('4', '4')
     );
     // assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(10));
   });
