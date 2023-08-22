@@ -60,8 +60,20 @@ export class CustomerFileWriter {
       const customersToWrite = customers.splice(0, batchSize);
 
       const [name, ext] = this.name_ext(fileName);
+      console.log(
+        '🚀 ~ file: customer-file-writer.ts:64 ~ CustomerFileWriter ~ ext:',
+        ext
+      );
+      console.log(
+        '🚀 ~ file: customer-file-writer.ts:64 ~ CustomerFileWriter ~ name:',
+        name
+      );
 
       const indexed_fileName = name + fileIndex + ext;
+      console.log(
+        '🚀 ~ file: customer-file-writer.ts:68 ~ CustomerFileWriter ~ indexed_fileName:',
+        indexed_fileName
+      );
 
       fileIndex++;
 
