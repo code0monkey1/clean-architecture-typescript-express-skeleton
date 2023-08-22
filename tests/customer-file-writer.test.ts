@@ -170,30 +170,15 @@ describe('Batch processing 15,000 files at once', () => {
     sut.writeBatchedCustomers(fileName, customers, 50);
 
     console.timeEnd('write customers');
-    const fileIndex = 0;
+    let fileIndex = 0;
 
-    assertCustomersHaveBeenWritten(
-      fileWriter,
-      'file' + fileIndex,
-      customers.slice(0, 50)
-    );
-
-    // assertCustomersHaveBeenWritten(
-    //   fileWriter,
-    //   'file0',
-    //   customers.slice(0, 5000)
-    // );
-    // assertCustomersHaveBeenWritten(
-    //   fileWriter,
-    //   'file0',
-    //   customers.slice(5000, 5)
-    // );
-    // assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
-    // assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
-    // assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
-    // assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
-    // assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
-    // assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
-    // assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(15000));
+    for (let i = 0; i < customers.length; i += 50) {
+      assertCustomersHaveBeenWritten(
+        fileWriter,
+        'file' + fileIndex,
+        customers.slice(i, i + 50)
+      );
+      fileIndex++;
+    }
   });
 });
