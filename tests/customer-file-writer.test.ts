@@ -87,7 +87,9 @@ describe('batched customers', () => {
 
     const fileWriter = getFileWriter();
 
-    const sut = getCustomerFileWriter(fileWriter);
+    const customerFileWriter = getCustomerFileWriter(fileWriter);
+
+    const sut = new BatchedCustomerFileWriter(customerFileWriter);
 
     sut.writeBatchedCustomers(fileName, customers, 12);
 
@@ -102,7 +104,7 @@ describe('batched customers', () => {
       customers.slice(0, 12)
     );
   });
-  it.only('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
+  it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
     //arrange
 
     const customers = createCustomers(15);
@@ -113,9 +115,9 @@ describe('batched customers', () => {
 
     const sut = getCustomerFileWriter(fileWriter);
 
-    // const bfr = new BatchedCustomerFileWriter(sut);
+    const bfr = new BatchedCustomerFileWriter(sut);
 
-    sut.writeBatchedCustomers(fileName, customers, 12);
+    bfr.writeBatchedCustomers(fileName, customers, 12);
 
     assertCustomersHaveBeenWritten(
       fileWriter,
@@ -124,39 +126,24 @@ describe('batched customers', () => {
     );
     assertCustomersHaveBeenWritten(
       fileWriter,
-      'myfile2.csv',
+      'myfile1.csv',
       customers.slice(12)
     );
   });
 
-  it.skip('given file with no extension, the numbering will still be chronological', () => {
+  it('given file with no extension, the numbering will still be chronological', () => {
     //arrange
     const fileName = 'file';
     const fileWriter = getFileWriter();
     const customers = createCustomers(10);
 
     //act
-    const sut = getCustomerFileWriter(fileWriter);
-
-    // sut.writeBatchedCustomers(fileName, customers, 5);
+    const customerFileWriter = getCustomerFileWriter(fileWriter);
 
     //assert
 
-    const bfw = new BatchedCustomerFileWriter(sut);
-    bfw.writeBatchedCustomers(fileName, customers, 5);
-
-    // cust.slice(0, 5).forEach((c) => {
-    //   expect(fileWriter.writeLine).toHaveBeenCalledWith(
-    //     'file0',
-    //     customerToString(c)
-    //   );
-    // });
-    // cust.slice(5).forEach((c) => {
-    //   expect(fileWriter.writeLine).toHaveBeenCalledWith(
-    //     'file1',
-    //     customerToString(c)
-    //   );
-    // });
+    const sut = new BatchedCustomerFileWriter(customerFileWriter);
+    sut.writeBatchedCustomers(fileName, customers, 5);
 
     assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
     assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(5));
