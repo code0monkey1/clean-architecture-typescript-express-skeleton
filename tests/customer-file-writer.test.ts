@@ -145,9 +145,10 @@ describe('batched customers', () => {
     const bfw = new BatchedCustomerFileWriter(sut);
     bfw.writeBatchedCustomers(fileName, customers, 5);
 
-    customers.slice(0, 6).map((c) => {
-      expect(fileWriter.writeLine).toHaveBeenCalledWith(c);
-    });
+    expect(fileWriter.writeLine).toHaveBeenCalledWith(
+      'file1',
+      customerToString(getCustomer('10', '10'))
+    );
 
     assertCustomerHasBeenWritten(
       fileWriter,
