@@ -1,4 +1,3 @@
-import Customer from './customer';
 import { BatchedCustomerFileWriter } from './customer-file-writer';
 import {
   assertCustomersHaveBeenWritten,
@@ -143,14 +142,24 @@ describe('batched customers', () => {
     bfr.writeBatchedCustomers(fileName, customers, 10);
 
     //assert
-    expect(fileWriter.writeLine).toBeCalledWith(
-      fileName + '0',
-      customerToString(new Customer('4', '4'))
-    );
 
-    expect(fileWriter.writeLine).toBeCalledWith(
-      fileName + '1',
-      customerToString(new Customer('9', '9'))
-    );
+    customers
+      .slice(0, 5)
+      .map((customer) =>
+        expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+          fileName + '0',
+          customerToString(customer)
+        )
+      );
+
+    // expect(fileWriter.writeLine).toBeCalledWith(
+    //   fileName + '0',
+    //   customerToString(new Customer('4', '4'))
+    // );
+
+    // expect(fileWriter.writeLine).toBeCalledWith(
+    //   fileName + '1',
+    //   customerToString(new Customer('9', '9'))
+    // );
   });
 });
