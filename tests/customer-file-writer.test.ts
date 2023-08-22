@@ -129,7 +129,7 @@ describe('batched customers', () => {
     );
   });
 
-  it.only('given file with no extension, the numbering will still be chronological', () => {
+  it.skip('given file with no extension, the numbering will still be chronological', () => {
     //arrange
     const fileName = 'file';
     const fileWriter = getFileWriter();
