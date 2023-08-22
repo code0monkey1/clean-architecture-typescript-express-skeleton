@@ -8,30 +8,12 @@ export class BatchedCustomerFileWriter {
     customers: Customer[],
     batchSize: number
   ) {
-    let fileIndex = 0;
-
-    while (customers.length) {
-      const customersToWrite = customers.splice(0, batchSize);
+    for (let i = 0; i < customers.length; i += batchSize) {
+      const customersToWrite = customers.slice(i, i + batchSize);
 
       const [name, ext] = this.name_ext(fileName);
 
-      const indexed_fileName = name + fileIndex + ext;
-
-      console.log(
-        '🚀 ~ file: customer-file-writer.ts:64 ~ CustomerFileWriter ~ ext:',
-        ext
-      );
-      console.log(
-        '🚀 ~ file: customer-file-writer.ts:64 ~ CustomerFileWriter ~ name:',
-        name
-      );
-
-      console.log(
-        '🚀 ~ file: customer-file-writer.ts:68 ~ CustomerFileWriter ~ indexed_fileName:',
-        indexed_fileName
-      );
-
-      fileIndex++;
+      const indexed_fileName = name + i + ext;
 
       this.customerFileWriter.writeCustomers(
         indexed_fileName,

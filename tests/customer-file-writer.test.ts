@@ -145,22 +145,6 @@ describe('batched customers', () => {
     const bfw = new BatchedCustomerFileWriter(sut);
     bfw.writeBatchedCustomers(fileName, customers, 5);
 
-    const cust = [
-      getCustomer('1', '1'),
-      getCustomer('2', '2'),
-      getCustomer('3', '3'),
-      getCustomer('4', '4'),
-      getCustomer('5', '5'),
-      getCustomer('6', '6'),
-      getCustomer('7', '7'),
-      getCustomer('7', '7'),
-      getCustomer('8', '8'),
-      getCustomer('9', '9'),
-      getCustomer('10', '10'),
-    ];
-    console.log('Cust value is ', JSON.stringify(cust));
-    console.log('customers value is ', JSON.stringify(customers));
-
     // cust.slice(0, 5).forEach((c) => {
     //   expect(fileWriter.writeLine).toHaveBeenCalledWith(
     //     'file0',
@@ -174,7 +158,7 @@ describe('batched customers', () => {
     //   );
     // });
 
-    // assertCustomersHaveBeenWritten(fileWriter, 'file0', cust.slice(0, 5));
-    // assertCustomersHaveBeenWritten(fileWriter, 'file1', cust.slice(5));
+    assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
+    assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(5));
   });
 });
