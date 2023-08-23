@@ -185,7 +185,7 @@ describe('Batch processing 15,000 files at once', () => {
 
 describe('Duplicate customers are removed', () => {
   describe('duplicates', () => {
-    it.only('writes only 2 unique customers , when 5 customers are given', () => {
+    it('writes only 2 unique customers , when 5 customers are given', () => {
       //arrange
       const fileName = 'file';
       const fileWriter = getFileWriter();
