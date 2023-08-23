@@ -65,11 +65,11 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
     const uniqueCustomers = customers.filter((c, index) => {
       const result = customers.findIndex((current, currentIndex) => {
         console.log(
-          'current name',
+          'current name:',
           current.name,
-          'c name',
+          'c name:',
           c.name,
-          'currentIndex',
+          'currentIndex:',
           currentIndex
         );
         current.name === c.name && currentIndex !== index;
