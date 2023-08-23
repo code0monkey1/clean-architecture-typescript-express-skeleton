@@ -1,11 +1,11 @@
 import Customer from './customer';
 import {
-  // assertCustomersHaveBeenWritten,
-  // batchedCustomersHaveBeenWritten,
+  assertCustomersHaveBeenWritten,
+  batchedCustomersHaveBeenWritten,
   createCustomers,
   getBatchedCustomerWriter,
   // customerToString,
-  // getCustomer,
+  getCustomer,
   getCustomerFileWriter,
   getFileWriter,
   getUniqueCustomerFileWriter,
@@ -83,106 +83,107 @@ import {
 //   });
 // });
 
-// describe('batched customers', () => {
-//   it('creates only 1 file, when customers are 12 ', () => {
-//     const customers = createCustomers(12);
-//     const fileName = 'myfile.csv';
+describe('batched customers', () => {
+  it('creates only 1 file, when customers are 12 ', () => {
+    const customers = createCustomers(12);
+    const fileName = 'myfile.csv';
 
-//     const fileWriter = getFileWriter();
+    const fileWriter = getFileWriter();
 
-//     const customerFileWriter = getCustomerFileWriter(fileWriter);
+    const cfw = getCustomerFileWriter(fileWriter);
 
-//     const sut = new BatchedCustomerFileWriter(customerFileWriter);
+    const sut = getBatchedCustomerWriter(cfw, 12);
 
-//     sut.writeBatchedCustomers(fileName, customers, 12);
+    sut.writeCustomers(fileName, customers);
 
-//     expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
-//       'myfile0.csv',
-//       getCustomer('12', '12').toString()
-//     );
+    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+      'myfile0.csv',
+      getCustomer('12', '12').toString()
+    );
 
-//     assertCustomersHaveBeenWritten(
-//       fileWriter,
-//       'myfile0.csv',
-//       customers.slice(0, 12)
-//     );
-//   });
-//   it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
-//     //arrange
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'myfile0.csv',
+      customers.slice(0, 12)
+    );
+  });
+  it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
+    //arrange
 
-//     const customers = createCustomers(15);
+    const customers = createCustomers(15);
 
-//     const fileName = 'myfile.csv';
+    const fileName = 'myfile.csv';
 
-//     const fileWriter = getFileWriter();
+    const fileWriter = getFileWriter();
 
-//     const sut = getCustomerFileWriter(fileWriter);
+    const cfw = getCustomerFileWriter(fileWriter);
 
-//     const bfr = new BatchedCustomerFileWriter(sut);
+    const bfr = getBatchedCustomerWriter(cfw, 12);
 
-//     bfr.writeBatchedCustomers(fileName, customers, 12);
+    bfr.writeCustomers(fileName, customers);
 
-//     assertCustomersHaveBeenWritten(
-//       fileWriter,
-//       'myfile0.csv',
-//       customers.slice(0, 12)
-//     );
-//     assertCustomersHaveBeenWritten(
-//       fileWriter,
-//       'myfile1.csv',
-//       customers.slice(12)
-//     );
-//   });
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'myfile0.csv',
+      customers.slice(0, 12)
+    );
+    assertCustomersHaveBeenWritten(
+      fileWriter,
+      'myfile1.csv',
+      customers.slice(12)
+    );
+  });
 
-//   it('given file with no extension, the numbering will still be chronological', () => {
-//     //arrange
-//     const fileName = 'file';
-//     const fileWriter = getFileWriter();
-//     const customers = createCustomers(10);
+  it('given file with no extension, the numbering will still be chronological', () => {
+    //arrange
+    const fileName = 'file';
+    const fileWriter = getFileWriter();
+    const customers = createCustomers(10);
 
-//     //act
-//     const customerFileWriter = getCustomerFileWriter(fileWriter);
+    //act
+    const cfw = getCustomerFileWriter(fileWriter);
 
-//     //assert
+    //assert
 
-//     const sut = new BatchedCustomerFileWriter(customerFileWriter);
-//     sut.writeBatchedCustomers(fileName, customers, 5);
+    const sut = getBatchedCustomerWriter(cfw, 5);
+    sut.writeCustomers(fileName, customers);
 
-//     assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
-//     assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(5));
-//   });
-// });
+    assertCustomersHaveBeenWritten(fileWriter, 'file0', customers.slice(0, 5));
+    assertCustomersHaveBeenWritten(fileWriter, 'file1', customers.slice(5));
+  });
+});
 
-// describe('Batch processing 15,000 files at once', () => {
-//   it.only('produces 2 files when the customers are 30,000', () => {
-//     //arrange
-//     const fileName = 'file';
-//     const fileWriter = getFileWriter();
+describe('Batch processing 15,000 files at once', () => {
+  it('produces 2 files when the customers are 30,000', () => {
+    //arrange
+    const fileName = 'file';
+    const fileWriter = getFileWriter();
 
-//     console.time('createCustomers');
+    console.time('createCustomers');
 
-//     const customers = createCustomers(10);
-//     console.timeEnd('createCustomers');
+    const customers = createCustomers(10);
+    console.timeEnd('createCustomers');
 
-//     //act
-//     const customerFileWriter = getCustomerFileWriter(fileWriter);
+    //act
+    const cfw = getCustomerFileWriter(fileWriter);
 
-//     //assert
-//     console.time('write customers');
-//     const sut = new BatchedCustomerFileWriter(customerFileWriter);
-//     sut.writeBatchedCustomers(fileName, customers, 1);
+    //assert
+    console.time('write customers');
+    const sut = getBatchedCustomerWriter(cfw, 1);
 
-//     console.timeEnd('write customers');
+    sut.writeCustomers(fileName, customers);
 
-//     //assert
+    console.timeEnd('write customers');
 
-//     console.time('assert customers written');
-//     batchedCustomersHaveBeenWritten(fileWriter, customers, 1);
-//     console.timeEnd('assert customers written');
-//   });
-// });
+    //assert
 
-describe.only('Duplicate customers are removed', () => {
+    console.time('assert customers written');
+    batchedCustomersHaveBeenWritten(fileWriter, customers, 1);
+    console.timeEnd('assert customers written');
+  });
+});
+
+describe('Duplicate customers are removed', () => {
   it('writes only 2 unique customers , when 5 customers are given', () => {
     //arrange
     const fileName = 'file';
@@ -206,5 +207,27 @@ describe.only('Duplicate customers are removed', () => {
     //assert
 
     expect(fileWriter.writeLine).toBeCalledTimes(3);
+  });
+
+  it('writes  5 unique customers , when 5 customers are given', () => {
+    //arrange
+    const fileName = 'file';
+    const fileWriter = getFileWriter();
+
+    const customers: Customer[] = createCustomers(5);
+
+    //act
+
+    const cfw = getCustomerFileWriter(fileWriter);
+
+    const bcw = getBatchedCustomerWriter(cfw, 10);
+
+    const sut = getUniqueCustomerFileWriter(bcw); // last  gets called first
+
+    sut.writeCustomers(fileName, customers);
+
+    //assert
+
+    expect(fileWriter.writeLine).toBeCalledTimes(5);
   });
 });
