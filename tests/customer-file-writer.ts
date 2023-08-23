@@ -66,7 +66,7 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
       const result = customers.findIndex((current, currentIndex) => {
         current.name === c.name && currentIndex !== index;
       });
-      console.log(index, result, c);
+      console.log(index, result, c.name);
       return true;
     });
 
