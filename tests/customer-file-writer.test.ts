@@ -184,50 +184,54 @@ describe('Batch processing 15,000 files at once', () => {
 });
 
 describe('Duplicate customers are removed', () => {
-  it('writes only 2 unique customers , when 5 customers are given', () => {
-    //arrange
-    const fileName = 'file';
-    const fileWriter = getFileWriter();
+  describe('duplicates', () => {
+    it('writes only 2 unique customers , when 5 customers are given', () => {
+      //arrange
+      const fileName = 'file';
+      const fileWriter = getFileWriter();
 
-    const customers: Customer[] = [
-      ...createCustomers(3),
-      ...createCustomers(2),
-    ];
+      const customers: Customer[] = [
+        ...createCustomers(3),
+        ...createCustomers(2),
+      ];
 
-    //act
+      //act
 
-    const cfw = getCustomerFileWriter(fileWriter);
+      const cfw = getCustomerFileWriter(fileWriter);
 
-    const bcw = getBatchedCustomerWriter(cfw, 10);
+      const bcw = getBatchedCustomerWriter(cfw, 10);
 
-    const sut = getUniqueCustomerFileWriter(bcw); // last  gets called first
+      const sut = getUniqueCustomerFileWriter(bcw); // last  gets called first
 
-    sut.writeCustomers(fileName, customers);
+      sut.writeCustomers(fileName, customers);
 
-    //assert
+      //assert
 
-    expect(fileWriter.writeLine).toBeCalledTimes(3);
+      expect(fileWriter.writeLine).toBeCalledTimes(3);
+    });
   });
 
-  it('writes  5 unique customers , when 5 customers are given', () => {
-    //arrange
-    const fileName = 'file';
-    const fileWriter = getFileWriter();
+  describe('no-duplicates', () => {
+    it('writes  5 unique customers , when 5 customers are given', () => {
+      //arrange
+      const fileName = 'file';
+      const fileWriter = getFileWriter();
 
-    const customers: Customer[] = createCustomers(5);
+      const customers: Customer[] = createCustomers(5);
 
-    //act
+      //act
 
-    const cfw = getCustomerFileWriter(fileWriter);
+      const cfw = getCustomerFileWriter(fileWriter);
 
-    const bcw = getBatchedCustomerWriter(cfw, 10);
+      const bcw = getBatchedCustomerWriter(cfw, 10);
 
-    const sut = getUniqueCustomerFileWriter(bcw); // last  gets called first
+      const sut = getUniqueCustomerFileWriter(bcw); // last  gets called first
 
-    sut.writeCustomers(fileName, customers);
+      sut.writeCustomers(fileName, customers);
 
-    //assert
+      //assert
 
-    expect(fileWriter.writeLine).toBeCalledTimes(5);
+      expect(fileWriter.writeLine).toBeCalledTimes(5);
+    });
   });
 });
