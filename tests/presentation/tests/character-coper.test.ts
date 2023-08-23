@@ -19,7 +19,6 @@ describe.skip('character-copier', () => {
       const src: Source = getSource([]);
 
       const dest = getDestination();
-
       const sut = new Copier(src, dest);
 
       //when
