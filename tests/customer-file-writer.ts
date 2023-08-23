@@ -64,6 +64,14 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
   writeCustomers(fileName: string, customers: Customer[]) {
     const uniqueCustomers = customers.filter((c, index) => {
       const result = customers.findIndex((current, currentIndex) => {
+        console.log(
+          'current name',
+          current.name,
+          'c name',
+          c.name,
+          'currentIndex',
+          currentIndex
+        );
         current.name === c.name && currentIndex !== index;
       });
       console.log(index, result, c.name);
