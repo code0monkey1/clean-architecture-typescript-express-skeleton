@@ -64,7 +64,7 @@ export class UniqueCustomerFileWriter implements ICustomerFileWriter {
   writeCustomers(fileName: string, customers: Customer[]) {
     const uniqueCustomers = customers.filter(
       (customer, index) =>
-        //findIndex would always giv the
+        //findIndex would always give the first index, so when we go further, in case of repeats , the first index won't match
         customers.findIndex((cust) => customer.name === cust.name) === index
     );
 
