@@ -17,7 +17,7 @@ describe('customer file writer', () => {
   //'when : we try to write the line to file
   //`then : writeLine function is not called
 
-  it.only('will not write to file , when there is no customer', () => {
+  it('will not write to file , when there is no customer', () => {
     //arrange
     const fileWriter = getFileWriter();
     const fileName = 'myfile.pdf';
@@ -35,7 +35,7 @@ describe('customer file writer', () => {
   //when : we try to write the object info to file
   // then : only single object with the given info gets written
 
-  it('given : single customer object is present', () => {
+  it.only('single customer object is present', () => {
     //arrange
     const fileWriter = getFileWriter();
     const customer = getCustomer('Glen', '32');
