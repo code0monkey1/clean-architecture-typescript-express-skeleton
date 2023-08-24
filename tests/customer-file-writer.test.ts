@@ -35,7 +35,7 @@ describe('customer file writer', () => {
   //when : we try to write the object info to file
   // then : only single object with the given info gets written
 
-  it.only('single customer object is present', () => {
+  it('single customer object is present', () => {
     //arrange
     const fileWriter = getFileWriter();
     const customer = getCustomer('Glen', '32');
@@ -58,7 +58,7 @@ describe('customer file writer', () => {
   //when : we try to write the objects info to file
   // then :the exact number and the exact order of customers are written to file
 
-  it.each([
+  it.only.each([
     {
       customers: createCustomers(3),
     },
