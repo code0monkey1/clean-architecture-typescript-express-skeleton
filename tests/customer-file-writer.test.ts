@@ -17,7 +17,7 @@ describe('customer file writer', () => {
   //'when : we try to write the line to file
   //`then : writeLine function is not called
 
-  it.only('no customer object will result in writeLine not being called', () => {
+  it.only('will not write to file , when there is no customer', () => {
     //arrange
     const fileWriter = getFileWriter();
     const fileName = 'myfile.pdf';
