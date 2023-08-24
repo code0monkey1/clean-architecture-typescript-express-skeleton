@@ -65,27 +65,32 @@ describe('customer file writer', () => {
     {
       customers: createCustomers(12),
     },
-  ])('$customers.length customers info gets written ', ({ customers }) => {
-    //arrange
-    const fileWriter = getFileWriter();
-    const fileName = 'narnia.ts';
+  ])(
+    '$customers.length customers info gets written , in the proper order ',
+    ({ customers }) => {
+      //arrange
+      const fileWriter = getFileWriter();
+      const fileName = 'narnia.ts';
 
-    //act
-    const sut = getCustomerFileWriter(fileWriter);
+      //act
+      const sut = getCustomerFileWriter(fileWriter);
 
-    sut.writeCustomers(fileName, customers);
+      sut.writeCustomers(fileName, customers);
 
-    //assert
-    assertCustomersHaveBeenWritten(fileWriter, fileName, customers);
-    //has same number of items as the number of customers
+      //assert
+      assertCustomersHaveBeenWritten(fileWriter, fileName, customers);
+      //has same number of items as the number of customers
 
-    expect(fileWriter.writeLine).toHaveBeenCalledTimes(customers.length);
-    const lastCustomer = customers[customers.length - 1];
-    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
-      fileName,
-      `${lastCustomer.name},${lastCustomer.contactNumber}`
-    );
-  });
+      expect(fileWriter.writeLine).toHaveBeenCalledTimes(customers.length);
+
+      expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+        fileName,
+        `${customers[customers.length - 1].name},${
+          customers[customers.length - 1].contactNumber
+        }`
+      );
+    }
+  );
 });
 
 describe('batched customers', () => {
