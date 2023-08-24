@@ -80,8 +80,10 @@ describe('customer file writer', () => {
     //has same number of items as the number of customers
 
     expect(fileWriter.writeLine).toHaveBeenCalledTimes(customers.length);
+    const lastCustomer = customers[customers.length - 1];
     expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
-      customers[customers.length - 1]
+      fileName,
+      `${lastCustomer.name},${lastCustomer.contactNumber}`
     );
   });
 });
