@@ -12,17 +12,9 @@ export const customerToString = (customer: Customer) => {
   return `${customer.name},${customer.contactNumber}`;
 };
 
-export const getFileWriter = () => {
-  const lines: string[] = [];
-
+export const getFileWriter = (): FileWriter => {
   return {
-    writeLine: jest.fn((_fileName: string, line: string) => {
-      lines.push(line);
-    }),
-
-    getLines: (): string[] => {
-      return lines;
-    },
+    writeLine: jest.fn((_fileName: string, _line: string) => {}),
   };
 };
 
