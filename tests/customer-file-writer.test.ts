@@ -65,7 +65,7 @@ describe('customer file writer', () => {
     {
       customers: createCustomers(12),
     },
-  ])('given : multiple customers are present', ({ customers }) => {
+  ])('$customers.length customers info gets written ', ({ customers }) => {
     //arrange
     const fileWriter = getFileWriter();
     const fileName = 'narnia.ts';
