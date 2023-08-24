@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/unbound-method */
 import Customer from './customer';
 import {
   assertCustomersHaveBeenWritten,
@@ -33,6 +34,7 @@ describe('customer file writer', () => {
   //given : single customer object is present
   //when : we try to write the object info to file
   // then : only single object with the given info gets written
+
   it('given : single customer object is present', () => {
     //arrange
     const fileWriter = getFileWriter();
@@ -44,14 +46,12 @@ describe('customer file writer', () => {
     sut.writeCustomers(fileName, [customer]);
 
     //assert
+
     expect(fileWriter.writeLine).toBeCalledTimes(1);
-    expect(fileWriter.writeLine).toHaveBeenCalledWith(
+    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
       fileName,
       customerToString(customer)
     );
-    expect(fileWriter.getLines()).toStrictEqual([customerToString(customer)]);
-    // expect(fs.getFileNames().length).toBe(1);
-    // expect(fs.getLines().length).toBe(1);
   });
 
   //given : multiple customer objects are present
@@ -79,7 +79,7 @@ describe('customer file writer', () => {
     assertCustomersHaveBeenWritten(fileWriter, fileName, customers);
     //has same number of items as the number of customers
 
-    expect(fileWriter.getLines().length).toBe(customers.length);
+    expect(fileWriter.writeLine).toHaveBeenCalledTimes(customers.length);
   });
 });
 
