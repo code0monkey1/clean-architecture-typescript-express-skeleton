@@ -30,9 +30,9 @@ describe('customer file writer', () => {
     expect(fileWriter.writeLine).toBeCalledTimes(0);
   });
 
-  //   //given : single customer object is present
-  //   //when : we try to write the object info to file
-  //   // then : only single object with the given info gets written
+  //given : single customer object is present
+  //when : we try to write the object info to file
+  // then : only single object with the given info gets written
   it('given : single customer object is present', () => {
     //arrange
     const fileWriter = getFileWriter();
