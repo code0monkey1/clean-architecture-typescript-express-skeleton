@@ -47,10 +47,10 @@ export interface ICustomerFileWriter {
 export class CustomerFileWriter implements ICustomerFileWriter {
   constructor(private readonly fileWriter: FileWriter) {}
 
-  writeCustomers(_fileName: string, _customers: Customer[]) {
-    // customers.forEach((customer) => {
-    //   this.fileWriter.writeLine(fileName, this.customerToString(customer));
-    // });
+  writeCustomers(fileName: string, customers: Customer[]) {
+    customers.forEach((customer) => {
+      this.fileWriter.writeLine(fileName, this.customerToString(customer));
+    });
   }
 
   private customerToString = (customer: Customer) => {
