@@ -80,6 +80,9 @@ describe('customer file writer', () => {
     //has same number of items as the number of customers
 
     expect(fileWriter.writeLine).toHaveBeenCalledTimes(customers.length);
+    expect(fileWriter.writeLine).toHaveBeenLastCalledWith(
+      customers[customers.length - 1]
+    );
   });
 });
 
