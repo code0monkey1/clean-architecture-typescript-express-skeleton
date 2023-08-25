@@ -210,6 +210,9 @@ describe('Batch processing 15,000 files at once', () => {
 });
 
 describe('Duplicate customers are removed', () => {
+  // Given a batch size of 10
+  // When a batch of 5 customers with 2 duplicates is written to a file
+  // Then only 3 unique customers should be written to the file
   describe('duplicates', () => {
     it('writes only 2 unique customers , when 5 customers are given', () => {
       //arrange
