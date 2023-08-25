@@ -175,6 +175,11 @@ describe('batched customers', () => {
 });
 
 describe('Batch processing 15,000 files at once', () => {
+  // Given a batch size of 1
+  // When a batch of 10 customers is written to 15,000 files
+  // Then 2 files should be created
+  // And the customers in the first file should match the first 10 customers in the batch
+  // And the customers in the second file should match the remaining 5,000 customers in the batch
   it('produces 2 files when the customers are 30,000', () => {
     //arrange
     const fileName = 'file';
@@ -233,6 +238,9 @@ describe('Duplicate customers are removed', () => {
   });
 
   describe('no-duplicates', () => {
+    // Given a batch size of 10
+    // When a batch of 5 unique customers is written to a file
+    // Then all 5 customers should be written to the file
     it('writes  5 unique customers , when 5 customers are given', () => {
       //arrange
       const fileName = 'file';
