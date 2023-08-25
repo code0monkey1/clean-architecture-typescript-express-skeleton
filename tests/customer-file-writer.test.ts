@@ -94,6 +94,10 @@ describe('customer file writer', () => {
 });
 
 describe('batched customers', () => {
+  // Given a batch size of 12
+  // When a batch of 12 customers is written to a file
+  // Then only 1 file should be created
+  // And the customers in the file should match the batch
   it('creates only 1 file, when customers are 12 ', () => {
     const customers = createCustomers(12);
     const fileName = 'myfile.csv';
@@ -117,6 +121,11 @@ describe('batched customers', () => {
       customers.slice(0, 12)
     );
   });
+  // Given a batch size of 12
+  // When a batch of 15 customers is written to a file
+  // Then only 2 files should be created
+  // And the customers in the first file should match the first 12 customers in the batch
+  // And the customers in the second file should match the remaining 3 customers in the batch
   it('creates only 2 files , when the customers are more than 12 , but less than 24', () => {
     //arrange
 
@@ -143,7 +152,9 @@ describe('batched customers', () => {
       customers.slice(12)
     );
   });
-
+  // Given a file with no extension
+  // When a batch of 10 customers is written to a file with no extension
+  // Then the numbering should still be chronological
   it('given file with no extension, the numbering will still be chronological', () => {
     //arrange
     const fileName = 'file';
