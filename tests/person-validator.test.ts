@@ -1,3 +1,4 @@
+import { RegisterValidator } from '../src/utils/interfaces/validator';
 export type Person = {
   name: string;
 };
@@ -10,7 +11,6 @@ export interface ValidationLibrary<T> {
     body: unknown
   ): Promise<{ success: boolean; errors: unknown; data: T | null }>;
 }
-import { RegisterValidator } from '../src/utils/interfaces/validator';
 
 describe.only('ValLibImpl', () => {
   beforeEach(() => {
