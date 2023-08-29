@@ -22,10 +22,12 @@ export class RegisterValidator implements ValidationLibrary<Person> {
           confirm_password: z.string(),
         })
         .refine((data) => data.email === data.confirm_email, {
-          message: 'email and confirm_email should not same',
+          message: 'email and confirm_email are not the same',
           path: ['confirm_email'],
+        })
+        .refine((data) => data.password === data.confirm_password, {
+          message: 'password and confirm password are not the same',
         });
-
       const person = await personSchema.parseAsync(body);
 
       return { success: true, errors: null, data: person };
