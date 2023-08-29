@@ -36,13 +36,33 @@ describe.only('ValLibImpl', () => {
     expect(result.data).toEqual(body);
   });
 
-  it('when confirm password not the same , should say so', async () => {
-    const body = {
-      name: 'Hiran',
-      email: 'v@gmail.co',
-      confirm_email: 'v@gmail.co',
-      password: 'hello123',
-    };
+  it.each([
+    {
+      body: {
+        name: 'Hiran',
+        email: 'v@gmail.co',
+        confirm_email: 'v@gmail.co',
+        password: 'hello123',
+      },
+    },
+    {
+      body: {
+        name: 'Hiran',
+        email: 'v@gmail.co',
+        confirm_email: 'v@gmail.co',
+        password: 'hello123',
+      },
+    },
+
+    {
+      body: {
+        name: 'Hiran',
+        email: 'v@gmail.co',
+        confirm_email: 'v@gmail.co',
+        password: 'hello123',
+      },
+    },
+  ])('when confirm password not the same , should say so', async ({ body }) => {
     const { errors } = await val_lib.validate(body);
 
     expect(errors).toStrictEqual({
