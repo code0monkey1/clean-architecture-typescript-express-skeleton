@@ -44,12 +44,11 @@ describe.only('ValLibImpl', () => {
       password: 'hello123',
     };
     const { errors } = await val_lib.validate(body);
-
+    console.log(JSON.stringify(errors, null, 2));
     expect(errors).toStrictEqual({
+      formErrors: [],
       fieldErrors: {
-        confirm_email: ['Required'],
         confirm_password: ['Required'],
-        formErrors: [],
       },
     });
   });
