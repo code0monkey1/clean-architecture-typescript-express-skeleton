@@ -4,8 +4,6 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  created: Date;
-  updated: Date;
 }
 
 const userSchema = new Schema(
