@@ -36,7 +36,7 @@ describe.only('ValLibImpl', () => {
     expect(result.data).toEqual(body);
   });
 
-  it('should return a ZodError when a person does not have a name filed', async () => {
+  it('when confirm password not the same , should say so', async () => {
     const body = {
       name: 'Hiran',
       email: 'v@gmail.co',
@@ -45,6 +45,7 @@ describe.only('ValLibImpl', () => {
     };
     const { errors } = await val_lib.validate(body);
     console.log(JSON.stringify(errors, null, 2));
+
     expect(errors).toStrictEqual({
       formErrors: [],
       fieldErrors: {
