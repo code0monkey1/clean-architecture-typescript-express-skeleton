@@ -15,6 +15,7 @@ export class RegisterValidator implements ValidationLibrary<Person> {
     try {
       const personSchema = z.object({
         name: z.string().min(3).max(20).trim(),
+        email: z.string().email(),
       });
 
       const person = await personSchema.parseAsync(body);
