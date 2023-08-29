@@ -13,7 +13,7 @@ export interface ValidationLibrary<T> {
 import { ZodError } from 'zod';
 import { RegisterValidator } from '../src/utils/interfaces/validator';
 
-describe('ValLibImpl', () => {
+describe.only('ValLibImpl', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
