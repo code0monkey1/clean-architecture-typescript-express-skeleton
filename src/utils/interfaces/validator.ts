@@ -1,17 +1,21 @@
 import { ZodError, z } from 'zod';
 
-export type Person = {
+type User = {
   name: string;
+  email: string;
+  confirm_email: string;
+  password: string;
+  confirm_password: string;
 };
 export interface ValidationLibrary<T> {
   validate(
     body: unknown
   ): Promise<{ success: boolean; errors: unknown; data: T | null }>;
 }
-export class RegisterValidator implements ValidationLibrary<Person> {
+export class RegisterValidator implements ValidationLibrary<User> {
   async validate(
     body: unknown
-  ): Promise<{ success: boolean; errors: unknown; data: Person | null }> {
+  ): Promise<{ success: boolean; errors: unknown; data: User | null }> {
     try {
       const personSchema = z
         .object({
