@@ -28,6 +28,7 @@ export class RegisterValidator implements ValidationLibrary<Person> {
         .refine((data) => data.password === data.confirm_password, {
           message: 'password and confirm password are not the same',
         });
+
       const person = await personSchema.parseAsync(body);
 
       return { success: true, errors: null, data: person };
