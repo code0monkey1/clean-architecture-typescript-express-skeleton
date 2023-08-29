@@ -7,7 +7,9 @@ export default interface Validator<T> {
 }
 
 export interface ValidationLibrary<T> {
-  validate(body: unknown): Promise<T | Error>;
+  validate(
+    body: unknown
+  ): Promise<{ success: boolean; errors: unknown; data: T | null }>;
 }
 
 import { ZodError } from 'zod';
@@ -18,7 +20,7 @@ describe.only('ValLibImpl', () => {
     jest.clearAllMocks();
   });
 
-  let val_lib: ValidationLibrary<Person | Error>;
+  let val_lib: ValidationLibrary<Person>;
 
   beforeEach(() => {
     val_lib = new RegisterValidator();
@@ -27,7 +29,7 @@ describe.only('ValLibImpl', () => {
   it('should return a Person object when the body is valid', async () => {
     const body: Person = { name: 'Hiran' };
     const result = await val_lib.validate(body);
-    expect(result).toEqual(body);
+    expect(result.data).toEqual(body);
   });
 
   it('should return a ZodError when a person does not have a name filed', async () => {
