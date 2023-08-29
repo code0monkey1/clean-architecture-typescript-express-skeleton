@@ -13,10 +13,18 @@ export class RegisterValidator implements ValidationLibrary<Person> {
     body: unknown
   ): Promise<{ success: boolean; errors: unknown; data: Person | null }> {
     try {
-      const personSchema = z.object({
-        name: z.string().min(3).max(20).trim(),
-        email: z.string().email(),
-      });
+      const personSchema = z
+        .object({
+          name: z.string().min(3).max(20).trim(),
+          email: z.string().email(),
+          confirm_email: z.string().email(),
+          password: z.string(),
+          confirm_password: z.string(),
+        })
+        .refine((data) => data.email === data.confirm_email, {
+          message: 'email and confirm_email should not same',
+          path: ['confirm_email'],
+        });
 
       const person = await personSchema.parseAsync(body);
 
