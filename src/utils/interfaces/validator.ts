@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { ZodError, z } from 'zod';
 
 export type Person = {
   name: string;
@@ -21,12 +21,11 @@ export class RegisterValidator implements ValidationLibrary<Person> {
 
       return { success: true, errors: null, data: person };
     } catch (err: unknown) {
-      let errors = '';
-      if (err instanceof Error) {
-        errors += err.message;
+      if (err instanceof ZodError) {
+        return { success: false, errors: err.flatten(), data: null };
+      } else {
+        throw err;
       }
-
-      return { success: false, errors, data: null };
     }
   }
 }
