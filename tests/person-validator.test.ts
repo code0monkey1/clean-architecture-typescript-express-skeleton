@@ -33,7 +33,10 @@ describe.only('ValLibImpl', () => {
     const body = { fame: 'Hiran' };
     const { errors } = await val_lib.validate(body);
 
-    expect(errors).toStrictEqual({ fieldErrors: { name: ['Required'] } });
+    expect(errors).toStrictEqual({
+      fieldErrors: { name: ['Required'] },
+      formErrors: [],
+    });
   });
 
   afterAll(() => {
