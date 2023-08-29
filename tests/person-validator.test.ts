@@ -1,11 +1,12 @@
 import { RegisterValidator } from '../src/utils/interfaces/validator';
+
 export type Person = {
   name: string;
 };
 
-export default interface Validator<T> {
-  validate(body: unknown): T | Error;
-}
+// export default interface Validator<T> {
+//   validate(body: unknown): T | Error;
+// }
 export interface ValidationLibrary<T> {
   validate(
     body: unknown
