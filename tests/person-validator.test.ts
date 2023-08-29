@@ -37,12 +37,20 @@ describe.only('ValLibImpl', () => {
   });
 
   it('should return a ZodError when a person does not have a name filed', async () => {
-    const body = { fame: 'Hiran' };
+    const body = {
+      name: 'Hiran',
+      email: 'v@gmail.co',
+      confirm_email: 'v@gmail.co',
+      password: 'hello123',
+    };
     const { errors } = await val_lib.validate(body);
 
     expect(errors).toStrictEqual({
-      fieldErrors: { name: ['Required'] },
-      formErrors: [],
+      fieldErrors: {
+        confirm_email: ['Required'],
+        confirm_password: ['Required'],
+        formErrors: [],
+      },
     });
   });
 
