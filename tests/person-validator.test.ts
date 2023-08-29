@@ -5,14 +5,11 @@ export type Person = {
 export default interface Validator<T> {
   validate(body: unknown): T | Error;
 }
-
 export interface ValidationLibrary<T> {
   validate(
     body: unknown
   ): Promise<{ success: boolean; errors: unknown; data: T | null }>;
 }
-
-import { ZodError } from 'zod';
 import { RegisterValidator } from '../src/utils/interfaces/validator';
 
 describe.only('ValLibImpl', () => {
@@ -34,7 +31,9 @@ describe.only('ValLibImpl', () => {
 
   it('should return a ZodError when a person does not have a name filed', async () => {
     const body = { fame: 'Hiran' };
-    await expect(val_lib.validate(body)).rejects.toThrow(ZodError);
+    const { errors } = await val_lib.validate(body);
+
+    expect(errors).toStrictEqual({ fieldErrors: { name: ['Required'] } });
   });
 
   afterAll(() => {
