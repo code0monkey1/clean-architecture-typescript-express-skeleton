@@ -24,7 +24,14 @@ describe.only('ValLibImpl', () => {
   });
 
   it('should return a Person object when the body is valid', async () => {
-    const body: Person = { name: 'Hiran' };
+    const body = {
+      name: 'Hiran',
+      email: 'v@gmail.co',
+      confirm_email: 'v@gmail.co',
+      password: 'hello123',
+      confirm_password: 'hello123',
+    };
+
     const result = await val_lib.validate(body);
     expect(result.data).toEqual(body);
   });
